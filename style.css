@@ -1,4 +1,47 @@
-/* গ্যালারি ওয়াপার */
+/* পুরো সাইটের ব্যাকগ্রাউন্ড কালার (গাঢ় matte greenish) */
+body {
+  background-color: #cddbd0; /* slightly deeper soft matte greenish */
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+/* টপ হেডার বক্স */
+.top-header-box {
+  background-color: #253c2c; /* matte dark greenish */
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 30px 20px;
+  margin: 30px auto;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* বড় aesthetic নাম */
+.main-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  margin: 0;
+}
+
+/* from daag */
+.from-daag {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  margin: 5px 0;
+  color: #ffeea9;
+}
+
+/* Designer, Animator... */
+.roles {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+/* গ্যালারি */
 .gallery-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
@@ -6,17 +49,15 @@
   scroll-behavior: smooth;
 }
 
-/* হরিজন্টাল গ্যালারি: ৪ রো সহ, ছবির এলাইনমেন্ট মিডল */
 .horizontal-gallery {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(4, 170px); /* Fixed row height */
+  grid-template-rows: repeat(4, 170px);
   gap: 10px;
   justify-items: center;
   align-items: center;
 }
 
-/* গ্যালারির ছবি স্টাইল */
 #illustration-gallery img,
 #animation-gallery img,
 #design-gallery img,

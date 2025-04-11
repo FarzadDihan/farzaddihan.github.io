@@ -41,6 +41,24 @@ body {
   margin-top: 10px;
 }
 
+/* টাইটেলগুলোকে রাউন্ড বক্সে রাখা */
+.gallery-title-box {
+  background-color: #253c2c; /* matte dark greenish */
+  color: #ffffff;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  margin: 0;
+}
+
 /* গ্যালারি */
 .gallery-wrapper {
   overflow-x: auto;

@@ -5,7 +5,7 @@ const FOLDER_IDS = {
   animation: "1jdMVLFM1fEJin_DGsxU5h5QBT7TffOQV",
   design: "1F9qYQ_aFXLjImo61XxMW1uXwZWmSWQ3u",
   randomPractice: "16O1UHav8jttMlLGwXOft5l-iUt4w0uTt",
-  storyboard: "12QtYLnwsjHcE1BOiGWCBTA4qDlA7c4zQ",  // contains subfolders
+  storyboard: "12QtYLnwsjHcE1BOiGWCBTA4qDlA7c4zQ",
   traditionalWork: "12TuHnmo3-P_u7pgsdJwuqw1eEPGUypaP",
   wallPaint: "12R59OQfIDhmGAfRCp5hhICW28zJzU15n",
   timelapse: "12RaSwvp7TjWUhhbkBz6jskHwI1qKxFgZ"
@@ -82,7 +82,7 @@ async function loadStoryboardMedia(parentFolderId, galleryElement) {
 }
 
 // Load media from main folders (for all except storyboard)
-async function loadMedia(folderId, galleryElement) {
+async function loadMedia(folderId, galleryElement, folderKey) {
   const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
 
   try {
@@ -111,13 +111,27 @@ async function loadMedia(folderId, galleryElement) {
           document.getElementById("modal").style.display = "block";
         });
         galleryElement.appendChild(img);
+
       } else if (mimeType.startsWith("video/")) {
-        const video = document.createElement("video");
-        video.src = fileUrl;
-        video.controls = true;
-        video.width = 160;
-        video.height = 160;
-        galleryElement.appendChild(video);
+        if (folderKey === "animation") {
+          // Use iframe for animation folder videos
+          const videoFrame = document.createElement("iframe");
+          videoFrame.src = `https://drive.google.com/file/d/${file.id}/preview`;
+          videoFrame.width = "600";
+          videoFrame.height = "300";
+          videoFrame.allowFullscreen = true;
+          videoFrame.style.margin = "5px 0";
+          galleryElement.appendChild(videoFrame);
+        } else {
+          // Regular video tag for other folders
+          const video = document.createElement("video");
+          video.src = fileUrl;
+          video.controls = true;
+          video.width = 160;
+          video.height = 160;
+          galleryElement.appendChild(video);
+        }
+
       } else if (mimeType === "application/pdf") {
         const pdfLink = document.createElement("a");
         pdfLink.href = fileUrl;
@@ -148,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (key === "storyboard") {
       loadStoryboardMedia(FOLDER_IDS[key], galleryElements[key]);
     } else {
-      loadMedia(FOLDER_IDS[key], galleryElements[key]);
+      loadMedia(FOLDER_IDS[key], galleryElements[key], key);
     }
   });
 });

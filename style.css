@@ -125,6 +125,7 @@ body {
   margin: 0;
 }
 
+/* স্টোরিবোর্ড গ্যালারি লেআউট */
 .gallery-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
@@ -132,20 +133,19 @@ body {
   scroll-behavior: smooth;
 }
 
+/* স্টোরিবোর্ড গ্যালারির জন্য ফ্লেক্স লেআউট */
 .horizontal-gallery {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(4, 170px);
-  gap: 10px;
-  justify-items: center;
-  align-items: center;
+  display: flex; /* Flexbox দিয়ে এক লাইনে আইটেম রাখার জন্য */
+  gap: 20px; /* আইটেমগুলোর মধ্যে স্পেস */
+  justify-content: flex-start; /* আইটেমগুলো বাম দিকে এলাইন হবে */
+  align-items: center; /* আইটেমগুলোকে ভারটিকালি সেন্টার করবে */
 }
 
 .horizontal-gallery img,
 .horizontal-gallery video {
-  height: 160px;
-  width: auto;
-  object-fit: contain;
+  height: 160px; /* ছবি/ভিডিওর হাইট */
+  width: auto; /* প্রপার সাইজের জন্য */
+  object-fit: contain; /* সঠিকভাবে ফিট হবে */
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.4s ease, box-shadow 0.3s ease;

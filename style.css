@@ -41,7 +41,7 @@ body {
 }
 
 /* ------------------------------
-   Social & Bio Section (Side by Side)
+   Social & Bio Section
 ------------------------------ */
 .side-by-side-box {
   display: flex;
@@ -83,11 +83,13 @@ body {
   text-decoration: none;
   border-radius: 8px;
   font-size: 14px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .social-buttons a:hover {
   background-color: #536c2f;
+  transform: scale(1.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5); /* Shadow added here */
 }
 
 /* --- Bio Box --- */
@@ -152,14 +154,13 @@ body {
   align-items: center;
 }
 
-/* Single-row override (for Storyboard, Animation, Timelapse) */
 .horizontal-gallery.single-row {
   grid-template-rows: repeat(1, 170px);
 }
 
-/* Media items inside gallery */
 .horizontal-gallery img,
-.horizontal-gallery video {
+.horizontal-gallery video,
+.horizontal-gallery iframe {
   height: 160px;
   width: auto;
   object-fit: contain;
@@ -167,6 +168,32 @@ body {
   cursor: pointer;
   transition: transform 0.4s ease, box-shadow 0.3s ease;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.horizontal-gallery img:hover,
+.horizontal-gallery video:hover,
+.horizontal-gallery iframe:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------
+   Section Box Wrapper for Galleries
+------------------------------ */
+.section-box {
+  background-color: #576543;  /* Updated color here */
+  border-radius: 20px;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+  margin: 40px auto;
+  padding: 25px 20px;
+  max-width: 95%;
+  border: 2px solid #d5d294;
+  transition: transform 0.3s ease;
+}
+
+.section-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
 }
 
 /* ------------------------------
@@ -181,22 +208,21 @@ body {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgba(0,0,0,0.8);
 }
 
 .modal-content {
   margin: auto;
   display: block;
-  max-width: 80%;
+  max-width: 90%;
   max-height: 80%;
 }
 
 .close {
   position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #fff;
+  top: 20px;
+  right: 40px;
+  color: white;
   font-size: 40px;
   font-weight: bold;
   cursor: pointer;

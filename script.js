@@ -2,7 +2,7 @@
 const API_KEY = "AIzaSyDZYWh4w2-w4KOxRfE21pNZDN2TuCaHiWM";
 
 const FOLDER_IDS = {
-  illustration: "1--p2NcHSTpiPVQqub7QPm2xP9zZkLm-T",
+  illustration: "1D51mD5492H05RYBnvllBblCbHSU_kIa3",
   animation: "1jdMVLFM1fEJin_DGsxU5h5QBT7TffOQV",
   design: "1F9qYQ_aFXLjImo61XxMW1uXwZWmSWQ3u",
   randomPractice: "16O1UHav8jttMlLGwXOft5l-iUt4w0uTt",

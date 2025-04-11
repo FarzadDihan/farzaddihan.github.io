@@ -1,229 +1,109 @@
-/* ------------------------------
-   Base Styles & Background
------------------------------- */
-body {
-  background-color: #7b824c;
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Farzad Dihan - Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
 
-/* ------------------------------
-   Header Section
------------------------------- */
-.top-header-box {
-  background-color: #253c2c;
-  color: #fff;
-  border-radius: 25px;
-  padding: 30px 20px;
-  margin: 30px auto;
-  max-width: 800px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+  <!-- Header Section -->
+  <header class="top-header-box">
+    <h1 class="main-name">Farzad Dihan</h1>
+    <p class="from-daag">From Daag-দাগ</p>
+    <p class="roles">Designer, Animator, Illustrator, Painter</p>
+  </header>
 
-.main-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 48px;
-  margin: 0;
-}
+  <!-- Social and Bio Side by Side -->
+  <section class="side-by-side-box">
+    
+    <!-- Social Links -->
+    <aside class="social-box">
+      <h2 class="social-title">Connect with me</h2>
+      <div class="social-buttons">
+        <a href="mailto:dihanfarzad@gmail.com?subject=Subject&body=Your%20message%20here" target="_blank">E-mail</a>
+        <a href="https://api.whatsapp.com/send?phone=8801851613736" target="_blank">WhatsApp</a>
+        <a href="http://fb.com/daagbyfarzaddihan" target="_blank">Facebook Page</a>
+        <a href="http://fb.com/farzaddihan" target="_blank">Facebook Profile</a>
+        <a href="http://instagram.com/dihhaann" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/dihhaann" target="_blank">LinkedIn</a>
+        <a href="https://www.behance.net/farzaddihan" target="_blank">Behance</a>
+        <a href="https://farzaddihan.artstation.com/" target="_blank">ArtStation</a>
+        <a href="http://farzaddihan.deviantart.com/" target="_blank">DeviantArt</a>
+        <a href="https://www.youtube.com/@farzaddihan" target="_blank">YouTube</a>
+        <a href="https://x.com/farzaddihan" target="_blank">X</a>
+        <a href="https://www.patreon.com/dihhaann" target="_blank">Patreon</a>
+        <a href="http://dribbble.com/farzaddihan" target="_blank">Dribbble</a>
+        <a href="https://www.pinterest.com/dihhaann/" target="_blank">Pinterest</a>
+        <a href="https://www.reddit.com/user/Ill_Brief3700/" target="_blank">Reddit</a>
+        <a href="https://farzaddihan.tumblr.com/" target="_blank">Tumblr</a>
+        <a href="https://t.me/farzaddihan" target="_blank">Telegram</a>
+      </div>
+    </aside>
 
-.from-daag {
-  font-size: 18px;
-  margin: 5px 0;
-  color: #ffeea9;
-}
+    <!-- Bio Section -->
+    <article class="bio-box">
+      <p class="bio-intro">Hi, I’m Dihan from Bangladesh.</p>
+      <p class="bio-text">
+        I am a designer, animator, illustrator, and painter with a deep passion for connecting human emotions through creativity. I hold a Bachelor's degree in Graphic Design under the Faculty of Fine Arts at Jahangirnagar University. Over the past five years, my artistic journey has allowed me to contribute to a variety of projects both nationally and internationally. Through my work, I strive to build meaningful connections between people, the world, and the soul.
+      </p>
+    </article>
 
-.roles {
-  font-size: 20px;
-  font-weight: 500;
-  margin-top: 10px;
-}
+  </section>
 
-/* ------------------------------
-   Social & Bio Section
------------------------------- */
-.side-by-side-box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 30px;
-  margin: 30px auto;
-  max-width: 1200px;
-}
+  <!-- Gallery Section -->
+  <main>
 
-/* --- Social Box --- */
-.social-box {
-  background-color: #b9b95f;
-  color: #000;
-  border-radius: 20px;
-  padding: 25px;
-  width: 320px;
-  text-align: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Illustration</h1></section>
+      <div class="gallery-wrapper"><div id="illustration-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    </div>
 
-.social-title {
-  font-size: 24px;
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 15px;
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Animation</h1></section>
+      <div class="gallery-wrapper"><div id="animation-gallery" class="horizontal-gallery single-row"><p>Loading images...</p></div></div>
+    </div>
 
-.social-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Design</h1></section>
+      <div class="gallery-wrapper"><div id="design-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    </div>
 
-.social-buttons a {
-  background-color: #253c2c;
-  color: #fff;
-  padding: 10px 15px;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 14px;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Other Works</h1></section>
+      <div class="gallery-wrapper"><div id="random-practice-gallery" class="horizontal-gallery"></div></div>
+    </div>
 
-.social-buttons a:hover {
-  background-color: #536c2f;
-  transform: scale(1.05);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5); /* Shadow added here */
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Storyboard</h1></section>
+      <div class="gallery-wrapper"><div id="storyboard-gallery" class="horizontal-gallery single-row"><p>Loading PDFs...</p></div></div>
+    </div>
 
-/* --- Bio Box --- */
-.bio-box {
-  background-color: #536c2f;
-  color: #fff;
-  border-radius: 20px;
-  padding: 20px 25px;
-  width: 500px;
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: left;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Traditional Work</h1></section>
+      <div class="gallery-wrapper"><div id="traditional-work-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    </div>
 
-.bio-intro {
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 10px;
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Wall Paint</h1></section>
+      <div class="gallery-wrapper"><div id="wall-paint-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    </div>
 
-.bio-text {
-  margin: 0;
-}
+    <div class="section-box">
+      <section class="gallery-title-box"><h1 class="gallery-title">Timelapse</h1></section>
+      <div class="gallery-wrapper"><div id="timelapse-gallery" class="horizontal-gallery single-row"><p>Loading images...</p></div></div>
+    </div>
 
-/* ------------------------------
-   Gallery Section Titles
------------------------------- */
-.gallery-title-box {
-  background-color: #253c2c;
-  color: #fff;
-  border-radius: 15px;
-  padding: 15px;
-  margin: 20px auto;
-  max-width: 500px;
-  text-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
+  </main>
 
-.gallery-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px;
-  margin: 0;
-}
+  <!-- Modal Viewer -->
+  <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img" />
+  </div>
 
-/* ------------------------------
-   Gallery Containers
------------------------------- */
-.gallery-wrapper {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 20px;
-  scroll-behavior: smooth;
-}
-
-.horizontal-gallery {
-  display: grid;
-  grid-auto-flow: column;
-  grid-template-rows: repeat(4, 170px);
-  gap: 10px;
-  justify-items: center;
-  align-items: center;
-}
-
-.horizontal-gallery.single-row {
-  grid-template-rows: repeat(1, 170px);
-}
-
-.horizontal-gallery img,
-.horizontal-gallery video,
-.horizontal-gallery iframe {
-  height: 160px;
-  width: auto;
-  object-fit: contain;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.4s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
-
-.horizontal-gallery img:hover,
-.horizontal-gallery video:hover,
-.horizontal-gallery iframe:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-}
-
-/* ------------------------------
-   Section Box Wrapper for Galleries
------------------------------- */
-.section-box {
-  background-color: #576543;  /* Updated color here */
-  border-radius: 20px;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
-  margin: 40px auto;
-  padding: 25px 20px;
-  max-width: 95%;
-  border: 2px solid #d5d294;
-  transition: transform 0.3s ease;
-}
-
-.section-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
-}
-
-/* ------------------------------
-   Modal Viewer
------------------------------- */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  padding-top: 60px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.8);
-}
-
-.modal-content {
-  margin: auto;
-  display: block;
-  max-width: 90%;
-  max-height: 80%;
-}
-
-.close {
-  position: absolute;
-  top: 20px;
-  right: 40px;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-}
+  <script src="script.js"></script>
+</body>
+</html>

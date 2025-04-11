@@ -113,8 +113,8 @@ async function loadMedia(folderId, galleryElement, folderKey) {
         galleryElement.appendChild(img);
 
       } else if (mimeType.startsWith("video/")) {
-        if (folderKey === "animation") {
-          // Use iframe for animation folder videos
+        if (folderKey === "animation" || folderKey === "timelapse") {
+          // Use iframe for animation and timelapse videos
           const videoFrame = document.createElement("iframe");
           videoFrame.src = `https://drive.google.com/file/d/${file.id}/preview`;
           videoFrame.width = "600";
@@ -163,6 +163,11 @@ document.addEventListener("DOMContentLoaded", () => {
       loadStoryboardMedia(FOLDER_IDS[key], galleryElements[key]);
     } else {
       loadMedia(FOLDER_IDS[key], galleryElements[key], key);
+    }
+
+    // Add single-row class for storyboard, animation, and timelapse galleries
+    if (key === "storyboard" || key === "animation" || key === "timelapse") {
+      galleryElements[key].classList.add("single-row");
     }
   });
 });

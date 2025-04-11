@@ -36,14 +36,61 @@ body {
   margin-top: 10px;
 }
 
+/* Side by Side Box */
+.side-by-side-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin: 30px auto;
+  max-width: 1200px;
+}
+
+/* Social Links Box */
+.social-box {
+  background-color: #b9b95f;
+  color: #000;
+  border-radius: 20px;
+  padding: 25px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.social-title {
+  font-size: 24px;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 15px;
+}
+
+.social-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.social-buttons a {
+  background-color: #253c2c;
+  color: #fff;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.social-buttons a:hover {
+  background-color: #536c2f;
+}
+
 /* Bio Box */
 .bio-box {
   background-color: #536c2f;
   color: #fff;
   border-radius: 20px;
   padding: 20px 25px;
-  margin: 20px auto 40px auto;
-  max-width: 700px;
+  width: 500px;
   font-size: 14px;
   line-height: 1.5;
   text-align: left;

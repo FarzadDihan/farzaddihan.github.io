@@ -10,16 +10,17 @@
 <body>
 
   <!-- Header Section -->
-  <div class="top-header-box">
+  <header class="top-header-box">
     <h1 class="main-name">Farzad Dihan</h1>
     <p class="from-daag">From Daag</p>
     <p class="roles">Designer, Animator, Illustrator, Painter</p>
-  </div>
+  </header>
 
   <!-- Social and Bio Side by Side -->
-  <div class="side-by-side-box">
-    <!-- Social Links Section -->
-    <div class="social-box">
+  <section class="side-by-side-box">
+    
+    <!-- Social Links -->
+    <aside class="social-box">
       <h2 class="social-title">Connect with me</h2>
       <div class="social-buttons">
         <a href="http://fb.com/farzaddihan" target="_blank">Facebook Profile</a>
@@ -35,43 +36,47 @@
         <a href="https://www.reddit.com/user/Ill_Brief3700/" target="_blank">Reddit</a>
         <a href="https://farzaddihan.tumblr.com/" target="_blank">Tumblr</a>
       </div>
-    </div>
+    </aside>
 
     <!-- Bio Section -->
-    <div class="bio-box">
+    <article class="bio-box">
       <p class="bio-intro">Hi, I’m Dihan from Bangladesh.</p>
       <p class="bio-text">
         I am a designer, animator, illustrator, and painter with a deep passion for connecting human emotions through creativity. I hold a Bachelor's degree in Graphic Design under the Faculty of Fine Arts at Jahangirnagar University. Over the past five years, my artistic journey has allowed me to contribute to a variety of projects both nationally and internationally. Through my work, I strive to build meaningful connections between people, the world, and the soul.
       </p>
-    </div>
-  </div>
+    </article>
 
-  <!-- Gallery Sections -->
-  <div class="gallery-title-box"><h1 class="gallery-title">Illustration</h1></div>
-  <div class="gallery-wrapper"><div id="illustration-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </section>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Animation</h1></div>
-  <div class="gallery-wrapper"><div id="animation-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  <!-- Gallery Section -->
+  <main>
+    <!-- Define galleries in an array to keep it cleaner in code later -->
+    <section class="gallery-title-box"><h1 class="gallery-title">Illustration</h1></section>
+    <div class="gallery-wrapper"><div id="illustration-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Design</h1></div>
-  <div class="gallery-wrapper"><div id="design-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    <section class="gallery-title-box"><h1 class="gallery-title">Animation</h1></section>
+    <div class="gallery-wrapper"><div id="animation-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Random Practice</h1></div>
-  <div class="gallery-wrapper"><div id="random-practice-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    <section class="gallery-title-box"><h1 class="gallery-title">Design</h1></section>
+    <div class="gallery-wrapper"><div id="design-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Storyboard</h1></div>
-  <div class="gallery-wrapper"><div id="storyboard-gallery" class="horizontal-gallery"><p>Loading PDFs...</p></div></div>
+    <section class="gallery-title-box"><h1 class="gallery-title">Random Practice</h1></section>
+    <div class="gallery-wrapper"><div id="random-practice-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Traditional Work</h1></div>
-  <div class="gallery-wrapper"><div id="traditional-work-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    <section class="gallery-title-box"><h1 class="gallery-title">Storyboard</h1></section>
+    <div class="gallery-wrapper"><div id="storyboard-gallery" class="horizontal-gallery"><p>Loading PDFs...</p></div></div>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Wall Paint</h1></div>
-  <div class="gallery-wrapper"><div id="wall-paint-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    <section class="gallery-title-box"><h1 class="gallery-title">Traditional Work</h1></section>
+    <div class="gallery-wrapper"><div id="traditional-work-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
 
-  <div class="gallery-title-box"><h1 class="gallery-title">Timelapse</h1></div>
-  <div class="gallery-wrapper"><div id="timelapse-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+    <section class="gallery-title-box"><h1 class="gallery-title">Wall Paint</h1></section>
+    <div class="gallery-wrapper"><div id="wall-paint-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
 
-  <!-- Modal for full image view -->
+    <section class="gallery-title-box"><h1 class="gallery-title">Timelapse</h1></section>
+    <div class="gallery-wrapper"><div id="timelapse-gallery" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </main>
+
+  <!-- Modal Viewer -->
   <div id="modal" class="modal">
     <span class="close">&times;</span>
     <img class="modal-content" id="modal-img" />

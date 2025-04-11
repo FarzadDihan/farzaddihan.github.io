@@ -22,16 +22,15 @@ const galleryElements = {
   timelapse: document.getElementById("timelapse-gallery")
 };
 
-// Load storyboard from subfolders, including images and PDFs
+// Load storyboard from subfolders
 async function loadStoryboardMedia(parentFolderId, galleryElement) {
-  const folderUrl = `https://www.googleapis.com/drive/v3/files?q='${parentFolderId}'+in+parents+and+mimeType='application/vnd.google-apps.folder'&key=${API_KEY}&fields=files(id,name)&pageSize=1000`;
+  const folderApi = `https://www.googleapis.com/drive/v3/files?q='${parentFolderId}'+in+parents+and+mimeType='application/vnd.google-apps.folder'&key=${API_KEY}&fields=files(id,name)&pageSize=1000`;
 
   try {
-    const folderRes = await fetch(folderUrl);
-    const folderData = await folderRes.json();
-    const subfolders = folderData.files;
+    const folderRes = await fetch(folderApi);
+    const subfolders = (await folderRes.json()).files;
 
-    if (subfolders.length === 0) {
+    if (!subfolders.length) {
       galleryElement.innerHTML = "<p>No subfolders found.</p>";
       return;
     }
@@ -39,12 +38,10 @@ async function loadStoryboardMedia(parentFolderId, galleryElement) {
     galleryElement.innerHTML = "";
 
     for (const subfolder of subfolders) {
-      const fileUrl = `https://www.googleapis.com/drive/v3/files?q='${subfolder.id}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
-      const fileRes = await fetch(fileUrl);
-      const fileData = await fileRes.json();
-      const files = fileData.files;
+      const filesApi = `https://www.googleapis.com/drive/v3/files?q='${subfolder.id}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
+      const files = (await (await fetch(filesApi)).json()).files;
 
-      if (files.length > 0) {
+      if (files.length) {
         const folderTitle = document.createElement("h3");
         folderTitle.textContent = subfolder.name;
         folderTitle.style.color = "#fff";
@@ -52,12 +49,12 @@ async function loadStoryboardMedia(parentFolderId, galleryElement) {
         galleryElement.appendChild(folderTitle);
 
         files.forEach(file => {
-          const fileUrl = `https://drive.google.com/uc?id=${file.id}`;
           const mimeType = file.mimeType;
+          const fileId = file.id;
 
           if (mimeType.startsWith("image/")) {
             const img = document.createElement("img");
-            img.src = `https://lh3.googleusercontent.com/d/${file.id}=s1000`;
+            img.src = `https://lh3.googleusercontent.com/d/${fileId}=s1000`;
             img.alt = file.name;
             img.addEventListener("click", () => {
               document.getElementById("modal-img").src = img.src;
@@ -65,12 +62,12 @@ async function loadStoryboardMedia(parentFolderId, galleryElement) {
             });
             galleryElement.appendChild(img);
           } else if (mimeType === "application/pdf") {
-            const pdfViewer = document.createElement("iframe");
-            pdfViewer.src = `https://drive.google.com/file/d/${file.id}/preview`;
-            pdfViewer.width = "600";
-            pdfViewer.height = "300";
-            pdfViewer.style.margin = "5px 0";
-            galleryElement.appendChild(pdfViewer);
+            const iframe = document.createElement("iframe");
+            iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+            iframe.width = "600";
+            iframe.height = "300";
+            iframe.style.margin = "5px 0";
+            galleryElement.appendChild(iframe);
           }
         });
       }
@@ -81,17 +78,14 @@ async function loadStoryboardMedia(parentFolderId, galleryElement) {
   }
 }
 
-// Load media from main folders (for all except storyboard)
+// Load regular folder media
 async function loadMedia(folderId, galleryElement, folderKey) {
-  const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
+  const mediaApi = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
 
   try {
-    const res = await fetch(url);
-    const data = await res.json();
+    const files = (await (await fetch(mediaApi)).json()).files;
 
-    const files = data.files;
-
-    if (files.length === 0) {
+    if (!files.length) {
       galleryElement.innerHTML = "<p>No media found in this folder.</p>";
       return;
     }
@@ -99,74 +93,70 @@ async function loadMedia(folderId, galleryElement, folderKey) {
     galleryElement.innerHTML = "";
 
     files.forEach(file => {
-      const fileUrl = `https://drive.google.com/uc?id=${file.id}`;
+      const fileId = file.id;
       const mimeType = file.mimeType;
+      const driveLink = `https://drive.google.com/uc?id=${fileId}`;
 
       if (mimeType.startsWith("image/")) {
         const img = document.createElement("img");
-        img.src = `https://lh3.googleusercontent.com/d/${file.id}=s1000`;
+        img.src = `https://lh3.googleusercontent.com/d/${fileId}=s1000`;
         img.alt = file.name;
         img.addEventListener("click", () => {
           document.getElementById("modal-img").src = img.src;
           document.getElementById("modal").style.display = "block";
         });
         galleryElement.appendChild(img);
-
       } else if (mimeType.startsWith("video/")) {
         if (folderKey === "animation" || folderKey === "timelapse") {
-          // Use iframe for animation and timelapse videos
-          const videoFrame = document.createElement("iframe");
-          videoFrame.src = `https://drive.google.com/file/d/${file.id}/preview`;
-          videoFrame.width = "600";
-          videoFrame.height = "300";
-          videoFrame.allowFullscreen = true;
-          videoFrame.style.margin = "5px 0";
-          galleryElement.appendChild(videoFrame);
+          const iframe = document.createElement("iframe");
+          iframe.src = `https://drive.google.com/file/d/${fileId}/preview`;
+          iframe.width = "600";
+          iframe.height = "300";
+          iframe.allowFullscreen = true;
+          iframe.style.margin = "5px 0";
+          galleryElement.appendChild(iframe);
         } else {
-          // Regular video tag for other folders
           const video = document.createElement("video");
-          video.src = fileUrl;
+          video.src = driveLink;
           video.controls = true;
           video.width = 160;
           video.height = 160;
           galleryElement.appendChild(video);
         }
-
       } else if (mimeType === "application/pdf") {
-        const pdfLink = document.createElement("a");
-        pdfLink.href = fileUrl;
-        pdfLink.target = "_blank";
-        pdfLink.textContent = `📄 ${file.name}`;
-        pdfLink.style.display = "block";
-        pdfLink.style.margin = "5px 0";
-        galleryElement.appendChild(pdfLink);
+        const link = document.createElement("a");
+        link.href = driveLink;
+        link.target = "_blank";
+        link.textContent = `📄 ${file.name}`;
+        link.style.display = "block";
+        link.style.margin = "5px 0";
+        galleryElement.appendChild(link);
       }
     });
-  } catch (error) {
+  } catch (err) {
     galleryElement.innerHTML = "<p>Failed to load media.</p>";
-    console.error("Error loading media:", error);
+    console.error("Error loading media:", err);
   }
 }
 
-// Initialize galleries when DOM is ready
+// Init galleries after DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
   const closeBtn = document.querySelector(".close");
 
   closeBtn.onclick = () => modal.style.display = "none";
-  window.onclick = (event) => {
-    if (event.target === modal) modal.style.display = "none";
+  window.onclick = (e) => {
+    if (e.target === modal) modal.style.display = "none";
   };
 
-  Object.keys(FOLDER_IDS).forEach(key => {
+  Object.entries(FOLDER_IDS).forEach(([key, id]) => {
     if (key === "storyboard") {
-      loadStoryboardMedia(FOLDER_IDS[key], galleryElements[key]);
+      loadStoryboardMedia(id, galleryElements[key]);
     } else {
-      loadMedia(FOLDER_IDS[key], galleryElements[key], key);
+      loadMedia(id, galleryElements[key], key);
     }
 
-    // Add single-row class for storyboard, animation, and timelapse galleries
-    if (key === "storyboard" || key === "animation" || key === "timelapse") {
+    if (["storyboard", "animation", "timelapse"].includes(key)) {
       galleryElements[key].classList.add("single-row");
     }
   });

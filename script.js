@@ -1,4 +1,5 @@
 const API_KEY = "AIzaSyDZYWh4w2-w4KOxRfE21pNZDN2TuCaHiWM";
+
 const FOLDER_IDS = {
   illustration: "1D51mD5492H05RYBnvllBblCbHSU_kIa3",
   animation: "1jdMVLFM1fEJin_DGsxU5h5QBT7TffOQV",
@@ -10,7 +11,6 @@ const FOLDER_IDS = {
   timelapse: "12RaSwvp7TjWUhhbkBz6jskHwI1qKxFgZ"
 };
 
-// Mapping folder IDs to gallery elements
 const galleryElements = Object.fromEntries(
   Object.keys(FOLDER_IDS).map(key => [
     key,
@@ -18,73 +18,91 @@ const galleryElements = Object.fromEntries(
   ])
 );
 
-// Utility functions to handle elements creation
-function createImageElement(file) {
-  const { id, name } = file;
-  const element = document.createElement("img");
-  element.dataset.src = `https://lh3.googleusercontent.com/d/${id}=s1000`;
-  element.alt = name;
-  element.loading = "lazy";
-  element.classList.add("lazy-media");
-  element.addEventListener("click", () => enableModal(element.src));
-  return element;
-}
+let mediaItems = [];
+let currentMediaIndex = 0;
 
-function createVideoElement(file, folderKey) {
-  const { id, mimeType } = file;
-  const driveLink = `https://drive.google.com/uc?id=${id}`;
-  const previewLink = `https://drive.google.com/file/d/${id}/preview`;
+function enableModal(index) {
+  const modal = document.getElementById("modal");
+  const img = document.getElementById("modal-img");
+  const video = document.getElementById("modal-video");
 
-  let element;
-  if (["animation", "timelapse"].includes(folderKey)) {
-    element = document.createElement("iframe");
-    element.dataset.src = previewLink;
-    element.width = "600";
-    element.height = "300";
-    element.allowFullscreen = true;
-  } else {
-    element = document.createElement("video");
-    element.dataset.src = driveLink;
-    element.controls = true;
-    element.width = 160;
-    element.height = 160;
+  const { src, type } = mediaItems[index];
+  currentMediaIndex = index;
+
+  if (type === "image") {
+    img.src = src;
+    img.style.display = "block";
+    video.style.display = "none";
+  } else if (type === "video") {
+    video.src = src;
+    video.style.display = "block";
+    img.style.display = "none";
   }
-  element.classList.add("lazy-media");
-  return element;
+
+  modal.style.display = "block";
 }
 
-function createPdfElement(file, folderKey) {
-  const { id, name } = file;
-  const driveLink = `https://drive.google.com/uc?id=${id}`;
-  const previewLink = `https://drive.google.com/file/d/${id}/preview`;
-
-  let element;
-  if (folderKey === "storyboard") {
-    element = document.createElement("iframe");
-    element.dataset.src = previewLink;
-    element.width = "600";
-    element.height = "300";
-    element.classList.add("lazy-media");
-  } else {
-    element = document.createElement("a");
-    element.href = driveLink;
-    element.target = "_blank";
-    element.textContent = `📄 ${name}`;
-    element.style.display = "block";
-    element.style.margin = "5px 0";
-  }
-  return element;
-}
-
-// General function to create an element based on file type
 function createElement(file, folderKey) {
-  const { mimeType } = file;
-  if (mimeType.startsWith("image/")) return createImageElement(file);
-  if (mimeType.startsWith("video/")) return createVideoElement(file, folderKey);
-  if (mimeType === "application/pdf") return createPdfElement(file, folderKey);
+  const { id, name, mimeType } = file;
+  const driveLink = `https://drive.google.com/uc?id=${id}`;
+  const previewLink = `https://drive.google.com/file/d/${id}/preview`;
+
+  let element;
+
+  if (mimeType.startsWith("image/")) {
+    const src = `https://lh3.googleusercontent.com/d/${id}=s1000`;
+    element = document.createElement("img");
+    element.dataset.src = src;
+    element.alt = name;
+    element.loading = "lazy";
+    element.classList.add("lazy-media");
+    const index = mediaItems.length;
+    mediaItems.push({ src, type: "image" });
+    element.addEventListener("click", () => enableModal(index));
+
+  } else if (mimeType.startsWith("video/")) {
+    if (["animation", "timelapse"].includes(folderKey)) {
+      element = document.createElement("iframe");
+      element.dataset.src = previewLink;
+      element.width = "600";
+      element.height = "300";
+      element.allowFullscreen = true;
+      element.style.margin = "5px 0";
+      element.classList.add("lazy-media");
+    } else {
+      const src = driveLink;
+      element = document.createElement("video");
+      element.dataset.src = src;
+      element.controls = true;
+      element.width = 160;
+      element.height = 160;
+      element.classList.add("lazy-media");
+      const index = mediaItems.length;
+      mediaItems.push({ src, type: "video" });
+      element.addEventListener("click", () => enableModal(index));
+    }
+
+  } else if (mimeType === "application/pdf") {
+    if (folderKey === "storyboard") {
+      element = document.createElement("iframe");
+      element.dataset.src = previewLink;
+      element.width = "600";
+      element.height = "300";
+      element.style.margin = "5px 0";
+      element.classList.add("lazy-media");
+    } else {
+      element = document.createElement("a");
+      element.href = driveLink;
+      element.target = "_blank";
+      element.textContent = `📄 ${name}`;
+      element.style.display = "block";
+      element.style.margin = "5px 0";
+    }
+  }
+
+  return element;
 }
 
-// Function to render a file into the gallery container
 function renderFile(file, folderKey, container) {
   const element = createElement(file, folderKey);
   if (element) {
@@ -95,7 +113,6 @@ function renderFile(file, folderKey, container) {
   }
 }
 
-// Load media from Google Drive folder
 async function loadMedia(folderId, galleryElement, folderKey) {
   const api = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
 
@@ -109,7 +126,6 @@ async function loadMedia(folderId, galleryElement, folderKey) {
   }
 }
 
-// Load storyboard media with subfolders
 async function loadStoryboardMedia(parentFolderId, galleryElement) {
   const folderApi = `https://www.googleapis.com/drive/v3/files?q='${parentFolderId}'+in+parents+and+mimeType='application/vnd.google-apps.folder'&key=${API_KEY}&fields=files(id,name)&pageSize=1000`;
 
@@ -143,7 +159,7 @@ const lazyObserver = new IntersectionObserver(entries => {
       const el = entry.target;
       const src = el.dataset.src;
       if (src) {
-        if (el.tagName === "IFRAME" || el.tagName === "IMG" || el.tagName === "VIDEO") {
+        if (["IFRAME", "IMG", "VIDEO"].includes(el.tagName)) {
           el.src = src;
           el.removeAttribute("data-src");
         }
@@ -164,14 +180,29 @@ function setupScrollAnimations() {
   document.querySelectorAll(".section-box").forEach(el => scrollObserver.observe(el));
 }
 
-// Main entry point when DOM is ready
-document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modal");
-  document.querySelector(".close").onclick = () => (modal.style.display = "none");
-  window.onclick = e => {
-    if (e.target === modal) modal.style.display = "none";
+// Modal navigation
+function setupModalControls() {
+  document.getElementById("modal-prev").onclick = () => {
+    currentMediaIndex = (currentMediaIndex - 1 + mediaItems.length) % mediaItems.length;
+    enableModal(currentMediaIndex);
   };
+  document.getElementById("modal-next").onclick = () => {
+    currentMediaIndex = (currentMediaIndex + 1) % mediaItems.length;
+    enableModal(currentMediaIndex);
+  };
+  document.querySelector(".close").onclick = () => {
+    document.getElementById("modal").style.display = "none";
+    document.getElementById("modal-img").src = "";
+    document.getElementById("modal-video").src = "";
+  };
+  window.onclick = e => {
+    if (e.target === document.getElementById("modal")) {
+      document.getElementById("modal").style.display = "none";
+    }
+  };
+}
 
+document.addEventListener("DOMContentLoaded", () => {
   Object.entries(FOLDER_IDS).forEach(([key, id]) => {
     const el = galleryElements[key];
     if (!el) return;
@@ -188,4 +219,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   setupScrollAnimations();
+  setupModalControls();
 });

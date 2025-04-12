@@ -1,5 +1,4 @@
 const API_KEY = "AIzaSyDZYWh4w2-w4KOxRfE21pNZDN2TuCaHiWM";
-
 const FOLDER_IDS = {
   illustration: "1D51mD5492H05RYBnvllBblCbHSU_kIa3",
   animation: "1jdMVLFM1fEJin_DGsxU5h5QBT7TffOQV",
@@ -11,68 +10,92 @@ const FOLDER_IDS = {
   timelapse: "12RaSwvp7TjWUhhbkBz6jskHwI1qKxFgZ"
 };
 
+// Mapping folder IDs to gallery elements
 const galleryElements = Object.fromEntries(
-  Object.keys(FOLDER_IDS).map(key => [key, document.getElementById(`${key.replace(/([A-Z])/g, '-$1').toLowerCase()}-gallery`)])
+  Object.keys(FOLDER_IDS).map(key => [
+    key,
+    document.getElementById(`${key.replace(/([A-Z])/g, '-$1').toLowerCase()}-gallery`)
+  ])
 );
 
-function enableModal(imgSrc) {
-  const modal = document.getElementById("modal");
-  document.getElementById("modal-img").src = imgSrc;
-  modal.style.display = "block";
+// Utility functions to handle elements creation
+function createImageElement(file) {
+  const { id, name } = file;
+  const element = document.createElement("img");
+  element.dataset.src = `https://lh3.googleusercontent.com/d/${id}=s1000`;
+  element.alt = name;
+  element.loading = "lazy";
+  element.classList.add("lazy-media");
+  element.addEventListener("click", () => enableModal(element.src));
+  return element;
 }
 
-function renderFile(file, folderKey, container) {
-  const { id, name, mimeType } = file;
+function createVideoElement(file, folderKey) {
+  const { id, mimeType } = file;
   const driveLink = `https://drive.google.com/uc?id=${id}`;
   const previewLink = `https://drive.google.com/file/d/${id}/preview`;
 
   let element;
-
-  if (mimeType.startsWith("image/")) {
-    element = document.createElement("img");
-    element.src = `https://lh3.googleusercontent.com/d/${id}=s1000`;
-    element.alt = name;
-    element.addEventListener("click", () => enableModal(element.src));
-  } else if (mimeType.startsWith("video/")) {
-    element =
-      ["animation", "timelapse"].includes(folderKey)
-        ? Object.assign(document.createElement("iframe"), {
-            src: previewLink,
-            width: "600",
-            height: "300",
-            allowFullscreen: true,
-            style: "margin: 5px 0;"
-          })
-        : Object.assign(document.createElement("video"), {
-            src: driveLink,
-            controls: true,
-            width: 160,
-            height: 160
-          });
-  } else if (mimeType === "application/pdf") {
-    if (folderKey === "storyboard") {
-      element = document.createElement("iframe");
-      element.src = previewLink;
-      element.width = "600";
-      element.height = "300";
-      element.style.margin = "5px 0";
-    } else {
-      element = document.createElement("a");
-      element.href = driveLink;
-      element.target = "_blank";
-      element.textContent = `📄 ${name}`;
-      element.style.display = "block";
-      element.style.margin = "5px 0";
-    }
+  if (["animation", "timelapse"].includes(folderKey)) {
+    element = document.createElement("iframe");
+    element.dataset.src = previewLink;
+    element.width = "600";
+    element.height = "300";
+    element.allowFullscreen = true;
+  } else {
+    element = document.createElement("video");
+    element.dataset.src = driveLink;
+    element.controls = true;
+    element.width = 160;
+    element.height = 160;
   }
+  element.classList.add("lazy-media");
+  return element;
+}
 
+function createPdfElement(file, folderKey) {
+  const { id, name } = file;
+  const driveLink = `https://drive.google.com/uc?id=${id}`;
+  const previewLink = `https://drive.google.com/file/d/${id}/preview`;
+
+  let element;
+  if (folderKey === "storyboard") {
+    element = document.createElement("iframe");
+    element.dataset.src = previewLink;
+    element.width = "600";
+    element.height = "300";
+    element.classList.add("lazy-media");
+  } else {
+    element = document.createElement("a");
+    element.href = driveLink;
+    element.target = "_blank";
+    element.textContent = `📄 ${name}`;
+    element.style.display = "block";
+    element.style.margin = "5px 0";
+  }
+  return element;
+}
+
+// General function to create an element based on file type
+function createElement(file, folderKey) {
+  const { mimeType } = file;
+  if (mimeType.startsWith("image/")) return createImageElement(file);
+  if (mimeType.startsWith("video/")) return createVideoElement(file, folderKey);
+  if (mimeType === "application/pdf") return createPdfElement(file, folderKey);
+}
+
+// Function to render a file into the gallery container
+function renderFile(file, folderKey, container) {
+  const element = createElement(file, folderKey);
   if (element) {
     element.classList.add("animate-on-scroll");
     container.appendChild(element);
-    observer.observe(element);
+    lazyObserver.observe(element);
+    scrollObserver.observe(element);
   }
 }
 
+// Load media from Google Drive folder
 async function loadMedia(folderId, galleryElement, folderKey) {
   const api = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)&pageSize=1000`;
 
@@ -86,6 +109,7 @@ async function loadMedia(folderId, galleryElement, folderKey) {
   }
 }
 
+// Load storyboard media with subfolders
 async function loadStoryboardMedia(parentFolderId, galleryElement) {
   const folderApi = `https://www.googleapis.com/drive/v3/files?q='${parentFolderId}'+in+parents+and+mimeType='application/vnd.google-apps.folder'&key=${API_KEY}&fields=files(id,name)&pageSize=1000`;
 
@@ -112,23 +136,35 @@ async function loadStoryboardMedia(parentFolderId, galleryElement) {
   }
 }
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("animated");
-      } else {
-        entry.target.classList.remove("animated");
+// Lazy load observer
+const lazyObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const src = el.dataset.src;
+      if (src) {
+        if (el.tagName === "IFRAME" || el.tagName === "IMG" || el.tagName === "VIDEO") {
+          el.src = src;
+          el.removeAttribute("data-src");
+        }
       }
-    });
-  },
-  { threshold: 0.1 }
-);
+      lazyObserver.unobserve(el);
+    }
+  });
+}, { rootMargin: "100px" });
+
+// Scroll animation observer
+const scrollObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    entry.target.classList.toggle("animated", entry.isIntersecting);
+  });
+}, { threshold: 0.1 });
 
 function setupScrollAnimations() {
-  document.querySelectorAll(".section-box").forEach(el => observer.observe(el));
+  document.querySelectorAll(".section-box").forEach(el => scrollObserver.observe(el));
 }
 
+// Main entry point when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("modal");
   document.querySelector(".close").onclick = () => (modal.style.display = "none");

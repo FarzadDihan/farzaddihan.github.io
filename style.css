@@ -9,28 +9,19 @@ body {
 }
 
 /* ------------------------------
-   Header
+   Header Section
 ------------------------------ */
 .top-header-box {
   background-color: #253c2c;
   color: #fff;
-  text-align: center;
+  text-align: left;
   border-radius: 25px;
-  padding: 30px 20px;
-  margin: 30px auto;
-  max-width: 800px;
+  padding: 30px 40px;
+  margin: 30px 0 30px 20px;
+  width: calc(100% - 80px);
+  max-width: 1100px;
+  box-sizing: border-box;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Animation wrapper class */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-.animate-on-scroll.animated {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .main-name {
@@ -52,6 +43,20 @@ body {
 }
 
 /* ------------------------------
+   Scroll Animation
+------------------------------ */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.animated {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------
    Social & Bio Section
 ------------------------------ */
 .side-by-side-box {
@@ -65,21 +70,21 @@ body {
   box-sizing: border-box;
 }
 
-.social-box,
-.bio-box {
+.social-box, .bio-box {
   flex: 1 1 45%;
-  padding: 25px;
-  box-sizing: border-box;
   min-width: 300px;
   max-width: 850px;
-}
-
-.social-box {
-  text-align: center;
-  color: #000;
-  background-color: #b9b95f;
+  padding: 25px;
+  box-sizing: border-box;
   border-radius: 20px;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Social Box */
+.social-box {
+  text-align: center;
+  background-color: #b9b95f;
+  color: #000;
 }
 
 .social-title {
@@ -102,7 +107,7 @@ body {
   text-decoration: none;
   background-color: #253c2c;
   border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .social-buttons a:hover {
@@ -111,14 +116,13 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
 
+/* Bio Box */
 .bio-box {
   font-size: 14px;
   color: #fff;
+  background-color: #536c2f;
   text-align: left;
   line-height: 1.5;
-  background-color: #536c2f;
-  border-radius: 20px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 .bio-intro {
@@ -177,12 +181,12 @@ body {
 .horizontal-gallery img,
 .horizontal-gallery video,
 .horizontal-gallery iframe {
-  width: auto;
   height: 160px;
+  width: auto;
   object-fit: contain;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.4s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s, box-shadow 0.3s;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -200,11 +204,11 @@ body {
   margin: 40px auto;
   padding: 25px 20px;
   max-width: 95%;
-  border: 2px solid #d5d294;
   background-color: #576543;
+  border: 2px solid #d5d294;
   border-radius: 20px;
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
 }
 
 .section-box:hover {

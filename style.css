@@ -165,23 +165,32 @@ body {
   scroll-behavior: smooth;
 }
 
+/* ✅ New Addition for Aspect-Ratio-Based Image Sizing */
+.gallery-wrapper img {
+  max-width: 220px;
+  max-height: 220px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
 .horizontal-gallery {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(4, 170px);
+  grid-template-rows: repeat(4, 220px); /* Updated from 170px to 220px */
   gap: 10px;
   justify-items: center;
   align-items: center;
 }
 
 .horizontal-gallery.single-row {
-  grid-template-rows: repeat(1, 170px);
+  grid-template-rows: repeat(1, 220px); /* Updated from 170px to 220px */
 }
 
 .horizontal-gallery img,
 .horizontal-gallery video,
 .horizontal-gallery iframe {
-  height: 160px;
+  height: 220px; /* Updated from 160px to 220px */
   width: auto;
   object-fit: contain;
   border-radius: 10px;
@@ -200,7 +209,7 @@ body {
 /* PDF link styles inside storyboard */
 .horizontal-gallery a.pdf-link {
   display: inline-block;
-  height: 160px;
+  height: 220px; /* Updated from 160px to 220px */
   width: 120px;
   padding: 10px;
   text-align: center;

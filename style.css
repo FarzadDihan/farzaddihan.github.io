@@ -322,3 +322,16 @@ body {
   background-color: #4e5a2f;
 }
 
+/* ------------------------------
+   Scrollbar Styling for Mobile
+------------------------------ */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 8px; /* Smaller scrollbar for mobile */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #4e5a2f;
+    border-radius: 5px;
+  }
+}

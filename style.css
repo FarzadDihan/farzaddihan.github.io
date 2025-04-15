@@ -6,6 +6,7 @@ body {
   color: #333;
   font-family: 'Inter', sans-serif;
   background-color: #7b824c;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* ------------------------------
@@ -163,34 +164,40 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ✅ New Addition for Aspect-Ratio-Based Image Sizing */
-.gallery-wrapper img {
-  max-width: 220px;
-  max-height: 220px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+.gallery-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.gallery-wrapper::-webkit-scrollbar-track {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+.gallery-wrapper::-webkit-scrollbar-thumb {
+  background-color: #253c2c;
+  border-radius: 5px;
 }
 
 .horizontal-gallery {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(4, 220px); /* Updated from 170px to 220px */
+  grid-template-rows: repeat(4, 220px);
   gap: 10px;
   justify-items: center;
   align-items: center;
 }
 
 .horizontal-gallery.single-row {
-  grid-template-rows: repeat(1, 220px); /* Updated from 170px to 220px */
+  grid-template-rows: repeat(1, 220px);
 }
 
 .horizontal-gallery img,
 .horizontal-gallery video,
 .horizontal-gallery iframe {
-  height: 220px; /* Updated from 160px to 220px */
+  height: 220px;
   width: auto;
   object-fit: contain;
   border-radius: 10px;
@@ -206,10 +213,9 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
 
-/* PDF link styles inside storyboard */
 .horizontal-gallery a.pdf-link {
   display: inline-block;
-  height: 220px; /* Updated from 160px to 220px */
+  height: 220px;
   width: 120px;
   padding: 10px;
   text-align: center;
@@ -301,50 +307,23 @@ body {
 }
 
 /* ------------------------------
-   Scrollbar Styling
+   Universal Scrollbar Styling
 ------------------------------ */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f1f1f1;
-  border-radius: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #536c2f;
-  border-radius: 10px;
-  border: 3px solid #f1f1f1;
+  background-color: #253c2c;
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #4e5a2f;
-}
-
-/* ------------------------------
-   Scrollbar Styling for Mobile (Chrome Fix)
------------------------------- */
-@media (max-width: 768px) {
-  ::-webkit-scrollbar {
-    width: 10px; /* Slightly smaller for mobile */
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: #d3d3d3; /* Lighter background */
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #536c2f; /* Darker green */
-    border-radius: 5px;
-    border: 2px solid #d3d3d3; /* Match track background */
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #4e5a2f;
-  }
-
-  body {
-    overflow-y: scroll; /* Ensure scrolling works */
-  }
+  background-color: #3d573d;
 }

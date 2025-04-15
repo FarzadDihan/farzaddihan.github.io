@@ -323,19 +323,28 @@ body {
 }
 
 /* ------------------------------
-   Scrollbar Styling for Mobile
+   Scrollbar Styling for Mobile (Chrome Fix)
 ------------------------------ */
 @media (max-width: 768px) {
   ::-webkit-scrollbar {
-    width: 8px; /* Smaller scrollbar for mobile */
+    width: 10px; /* Slightly smaller for mobile */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #d3d3d3; /* Lighter background */
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #4e5a2f;
+    background-color: #536c2f; /* Darker green */
     border-radius: 5px;
+    border: 2px solid #d3d3d3; /* Match track background */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #4e5a2f;
   }
 
   body {
-    overflow-y: scroll; /* Ensure scrolling works on mobile */
+    overflow-y: scroll; /* Ensure scrolling works */
   }
 }

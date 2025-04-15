@@ -334,4 +334,8 @@ body {
     background-color: #4e5a2f;
     border-radius: 5px;
   }
+
+  body {
+    overflow-y: scroll; /* Ensure scrolling works on mobile */
+  }
 }

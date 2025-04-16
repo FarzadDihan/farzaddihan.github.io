@@ -197,8 +197,10 @@ body {
 .horizontal-gallery img,
 .horizontal-gallery video,
 .horizontal-gallery iframe {
-  height: 220px;
+  max-height: 200px;
+  max-width: 200px;
   width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 10px;
   cursor: pointer;
@@ -215,7 +217,7 @@ body {
 
 .horizontal-gallery a.pdf-link {
   display: inline-block;
-  height: 220px;
+  height: 200px;
   width: 120px;
   padding: 10px;
   text-align: center;

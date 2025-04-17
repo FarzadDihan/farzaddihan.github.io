@@ -649,7 +649,8 @@
         elements.modalVideo.src = "";
 
         if (type === "image") {
-          elements.modalImg.src = src;
+          // Use medium resolution (800px width) instead of full resolution (s0)
+          elements.modalImg.src = src.replace(/=s0$/, '=w800');
           elements.modalImg.alt = alt || "Gallery Image";
           elements.modalImg.style.display = "block";
         } else if (type === "video") {
@@ -665,7 +666,8 @@
         
         const driveLink = `https://drive.google.com/uc?id=${file.id}`;
         const previewLink = `https://drive.google.com/file/d/${file.id}/preview`;
-        const highResImageSrc = `https://lh3.googleusercontent.com/d/${file.id}=s0`;
+        // Use medium resolution (800px width) for modal and thumbnail (400px width) for gallery
+        const highResImageSrc = `https://lh3.googleusercontent.com/d/${file.id}=w800`;
         const thumbnailSrc = `https://lh3.googleusercontent.com/d/${file.id}=w400`;
         
         let element;

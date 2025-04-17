@@ -1,1137 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Farzad Dihan - Art Gallery and Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    /* Base Styles */
-    body {
-      margin: 0;
-      color: #333;
-      font-family: 'Inter', sans-serif;
-      background-color: #7b824c;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* Header Styles */
-    .header-box {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: center;
-      padding: 20px;
-      border-radius: 10px;
-      background: #234628;
-      color: #fff;
-      margin: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .name-box {
-      flex: 1;
-      min-width: 250px;
-    }
-
-    .header-box h1 {
-      margin: 0;
-      font-size: 36px;
-      font-family: 'Playfair Display', serif;
-      color: #fff;
-    }
-
-    .from-daag {
-      color: #D1C78F;
-      font-size: 14px;
-      margin: 5px 0 3px;
-    }
-
-    .roles {
-      color: #F1E6A8;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    #slideshow {
-      width: 200px;
-      height: 200px;
-      flex-shrink: 0;
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
-    }
-
-    #slideshow img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    /* Scroll Animation */
-    .animate-on-scroll {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
-
-    .animate-on-scroll.animated {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Social & Bio Section */
-    .side-by-side-box {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 0 20px;
-      margin: 30px auto;
-      max-width: 1800px;
-      box-sizing: border-box;
-    }
-
-    .social-box, .bio-box {
-      flex: 1 1 45%;
-      min-width: 300px;
-      max-width: 850px;
-      padding: 25px;
-      box-sizing: border-box;
-      border-radius: 20px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Social Box */
-    .social-box {
-      text-align: center;
-      background-color: #b9b95f;
-      color: #000;
-    }
-
-    .social-title {
-      margin-bottom: 15px;
-      font-size: 24px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .social-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .social-buttons a {
-      padding: 10px 15px;
-      font-size: 14px;
-      color: #fff;
-      text-decoration: none;
-      background-color: #253c2c;
-      border-radius: 8px;
-      transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    }
-
-    .social-buttons a:hover {
-      background-color: #536c2f;
-      transform: scale(1.05);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Bio Box */
-    .bio-box {
-      font-size: 14px;
-      color: #fff;
-      background-color: #536c2f;
-      text-align: left;
-      line-height: 1.5;
-    }
-
-    .bio-intro {
-      margin-bottom: 10px;
-      font-weight: 600;
-      font-size: 15px;
-    }
-
-    .bio-text {
-      margin: 0;
-    }
-
-    /* Gallery Titles */
-    .gallery-title-box {
-      margin: 20px auto;
-      padding: 15px;
-      max-width: 500px;
-      text-align: center;
-      background-color: #253c2c;
-      color: #fff;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .gallery-title {
-      margin: 0;
-      font-size: 30px;
-      font-family: 'Playfair Display', serif;
-    }
-
-    /* Gallery Containers */
-    .gallery-wrapper {
-      padding: 20px;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .gallery-wrapper::-webkit-scrollbar {
-      height: 10px;
-    }
-
-    .gallery-wrapper::-webkit-scrollbar-track {
-      background: #ccc;
-      border-radius: 5px;
-    }
-
-    .gallery-wrapper::-webkit-scrollbar-thumb {
-      background-color: #253c2c;
-      border-radius: 5px;
-    }
-
-    .horizontal-gallery {
-      display: grid;
-      grid-auto-flow: column;
-      grid-template-rows: repeat(4, 220px);
-      gap: 10px;
-      justify-items: center;
-      align-items: center;
-      min-height: 240px;
-    }
-
-    /* Single Row Override */
-    .horizontal-gallery.single-row {
-      grid-template-rows: repeat(1, auto);
-      align-items: start;
-      min-height: 320px;
-    }
-
-    .horizontal-gallery img,
-    .horizontal-gallery video {
-      max-height: 200px;
-      max-width: 200px;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.4s, box-shadow 0.3s;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-user-drag: none;
-      -khtml-user-drag: none;
-      -moz-user-drag: none;
-      -o-user-drag: none;
-      user-drag: none;
-    }
-
-    /* Specific iframe styling */
-    .horizontal-gallery iframe {
-      max-height: 300px;
-      max-width: 400px;
-      width: 400px;
-      height: 300px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.4s, box-shadow 0.3s;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      border: none;
-    }
-
-    .horizontal-gallery img:hover,
-    .horizontal-gallery video:hover,
-    .horizontal-gallery iframe:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    }
-
-    /* PDF link styling */
-    .horizontal-gallery a.pdf-link {
-      display: flex;
-      height: 200px;
-      width: auto;
-      min-width: 120px;
-      padding: 15px;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      text-decoration: none;
-      color: #fff;
-      background-color: #253c2c;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.3;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      transition: transform 0.4s, box-shadow 0.3s, background-color 0.3s;
-      box-sizing: border-box;
-    }
-
-    .horizontal-gallery a.pdf-link:hover {
-      transform: scale(1.05);
-      background-color: #536c2f;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Section Wrapper for Galleries */
-    .section-box {
-      margin: 40px auto;
-      padding: 25px 20px;
-      max-width: 95%;
-      background-color: #576543;
-      border: 2px solid #d5d294;
-      border-radius: 20px;
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-sizing: border-box;
-    }
-
-    .section-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
-    }
-
-    /* Modal Viewer */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      padding-top: 60px;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      overflow: auto;
-    }
-
-    .modal-content {
-      display: block;
-      margin: auto;
-      max-width: 90%;
-      max-height: 80%;
-      width: auto;
-      height: auto;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-user-drag: none;
-      -khtml-user-drag: none;
-      -moz-user-drag: none;
-      -o-user-drag: none;
-      user-drag: none;
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 40px;
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1001;
-    }
-
-    .prev,
-    .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      font-size: 40px;
-      color: white;
-      padding: 10px 15px;
-      transform: translateY(-50%);
-      user-select: none;
-      background-color: rgba(0, 0, 0, 0.3);
-      border-radius: 5px;
-      transition: background-color 0.3s;
-      z-index: 1001;
-    }
-
-    .prev:hover,
-    .next:hover {
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    .prev {
-      left: 30px;
-    }
-
-    .next {
-      right: 30px;
-    }
-
-    /* Loading text styling */
-    .horizontal-gallery p {
-      color: #eee;
-      font-size: 16px;
-      padding: 20px;
-      text-align: center;
-      grid-column: 1 / -1;
-    }
-
-    /* Storyboard subfolder styling */
-    .storyboard-subfolder-section {
-      display: contents;
-    }
-    .storyboard-subfolder-section h3 {
-      grid-column: 1 / -1;
-      text-align: center;
-      color: #fff;
-      font-family: 'Playfair Display', serif;
-      margin-top: 15px;
-      margin-bottom: 5px;
-    }
-
-    /* Universal Scrollbar Styling */
-    ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background-color: #ddd;
-      border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background-color: #253c2c;
-      border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background-color: #3d573d;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Farzad Dihan - Art Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;color:#333;font-family:'Inter',sans-serif;background:#7b824c}
+.header-box{display:flex;flex-wrap:wrap;gap:20px;align-items:center;padding:20px;border-radius:10px;background:#234628;color:#fff;margin:20px;box-shadow:0 4px 10px #0003}
+.name-box{flex:1;min-width:250px}
+h1,h2{font-family:'Playfair Display',serif;margin:0}
+.header-box h1{font-size:36px;color:#fff}
+.from-daag{color:#D1C78F;font-size:14px;margin:5px 0 3px}
+.roles{color:#F1E6A8;font-size:16px;font-weight:500}
+#slideshow{width:200px;height:200px;flex-shrink:0;background:#000;border-radius:10px;overflow:hidden;position:relative;box-shadow:0 0 10px #0009}
+#slideshow img{position:absolute;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;user-select:none}
+.animate{opacity:0;transform:translateY(40px);transition:.8s ease-out}
+.animate.show{opacity:1;transform:none}
+.side-by-side{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;padding:0 20px;margin:30px auto;max-width:1800px}
+.social,.bio{flex:1 1 45%;min-width:300px;max-width:850px;padding:25px;border-radius:20px;box-shadow:0 3px 8px #0003}
+.social{text-align:center;background:#b9b95f;color:#000}
+.social-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.social-btns a{padding:10px 15px;font-size:14px;color:#fff;text-decoration:none;background:#253c2c;border-radius:8px;transition:all .3s}
+.social-btns a:hover{background:#536c2f;transform:scale(1.05);box-shadow:0 4px 14px #0008}
+.bio{font-size:14px;color:#fff;background:#536c2f;text-align:left;line-height:1.5}
+.bio-intro{margin-bottom:10px;font-weight:600;font-size:15px}
+.gallery-title-box{margin:20px auto;padding:15px;max-width:500px;text-align:center;background:#253c2c;color:#fff;border-radius:15px;box-shadow:0 4px 10px #0003}
+.gallery-wrapper{padding:20px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth}
+.gallery-wrapper::-webkit-scrollbar{height:10px}
+.gallery-wrapper::-webkit-scrollbar-track{background:#ccc;border-radius:5px}
+.gallery-wrapper::-webkit-scrollbar-thumb{background:#253c2c;border-radius:5px}
+.horizontal-gallery{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,220px);gap:10px;justify-items:center;align-items:center;min-height:240px}
+.horizontal-gallery.single{grid-template-rows:repeat(1,auto);align-items:start;min-height:320px}
+.horizontal-gallery img,.horizontal-gallery video{max-height:200px;max-width:200px;width:auto;height:auto;object-fit:contain;border-radius:10px;cursor:pointer;transition:.4s;box-shadow:0 2px 6px #0003;user-select:none}
+.horizontal-gallery iframe{max-height:300px;max-width:400px;width:400px;height:300px;border-radius:10px;cursor:pointer;transition:.4s;box-shadow:0 2px 6px #0003;border:none}
+.horizontal-gallery img:hover,.horizontal-gallery video:hover,.horizontal-gallery iframe:hover{transform:scale(1.05);box-shadow:0 4px 14px #0008}
+.horizontal-gallery a.pdf-link{display:flex;height:200px;width:auto;min-width:120px;padding:15px;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#fff;background:#253c2c;border-radius:10px;font-size:14px;line-height:1.3;box-shadow:0 2px 6px #0004;transition:all .4s}
+.horizontal-gallery a.pdf-link:hover{transform:scale(1.05);background:#536c2f;box-shadow:0 4px 14px #0008}
+.section-box{margin:40px auto;padding:25px 20px;max-width:95%;background:#576543;border:2px solid #d5d294;border-radius:20px;box-shadow:0 5px 12px #0002;transition:all .3s}
+.section-box:hover{transform:translateY(-5px);box-shadow:0 8px 18px #0003}
+.modal{display:none;position:fixed;z-index:1000;padding-top:60px;top:0;left:0;width:100%;height:100%;background:#000c;overflow:auto}
+.modal-content{display:block;margin:auto;max-width:90%;max-height:80%;width:auto;height:auto;user-select:none}
+.close{position:absolute;top:20px;right:40px;color:#fff;font-size:40px;font-weight:bold;cursor:pointer;z-index:1001}
+.prev,.next{cursor:pointer;position:absolute;top:50%;font-size:40px;color:#fff;padding:10px 15px;transform:translateY(-50%);user-select:none;background:#0005;border-radius:5px;transition:all .3s;z-index:1001}
+.prev:hover,.next:hover{background:#0009}
+.prev{left:30px}.next{right:30px}
+.horizontal-gallery p{color:#eee;font-size:16px;padding:20px;text-align:center;grid-column:1/-1}
+.storyboard-subfolder{display:contents}
+.storyboard-subfolder h3{grid-column:1/-1;text-align:center;color:#fff;font-family:'Playfair Display',serif;margin:15px 0 5px}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#ddd;border-radius:5px}
+::-webkit-scrollbar-thumb{background:#253c2c;border-radius:5px}
+::-webkit-scrollbar-thumb:hover{background:#3d573d}
+</style>
 </head>
 <body>
 
-  <!-- Header Section -->
-  <header class="header-box animate-on-scroll">
-    <div class="name-box">
-      <h1>Farzad Mustakim Dihan</h1>
-      <p class="from-daag">From Daag</p>
-      <p class="roles">Designer, Animator, Illustrator, Painter</p>
-    </div>
-    <div id="slideshow">
-      <!-- Images will be loaded here by script -->
-    </div>
-  </header>
-
-  <!-- Social and Bio Section -->
-  <section class="side-by-side-box">
-    <!-- Social Links -->
-    <aside class="social-box animate-on-scroll">
-      <h2 class="social-title">Connect with me</h2>
-      <div class="social-buttons">
-        <a href="mailto:dihanfarzad@gmail.com?subject=Subject&body=Your%20message%20here" target="_blank">E-mail</a>
-        <a href="https://api.whatsapp.com/send?phone=8801851613736" target="_blank">WhatsApp</a>
-        <a href="http://fb.com/daagbyfarzaddihan" target="_blank">Facebook Page</a>
-        <a href="http://fb.com/farzaddihan" target="_blank">Facebook Profile</a>
-        <a href="http://instagram.com/dihhaann" target="_blank">Instagram</a>
-        <a href="https://www.linkedin.com/in/dihhaann" target="_blank">LinkedIn</a>
-        <a href="https://www.behance.net/farzaddihan" target="_blank">Behance</a>
-        <a href="https://farzaddihan.artstation.com/" target="_blank">ArtStation</a>
-        <a href="http://farzaddihan.deviantart.com/" target="_blank">DeviantArt</a>
-        <a href="https://www.youtube.com/@farzaddihan" target="_blank">YouTube</a>
-        <a href="https://x.com/farzaddihan" target="_blank">X</a>
-        <a href="https://www.patreon.com/dihhaann" target="_blank">Patreon</a>
-        <a href="http://dribbble.com/farzaddihan" target="_blank">Dribbble</a>
-        <a href="https://www.pinterest.com/dihhaann/" target="_blank">Pinterest</a>
-        <a href="https://www.reddit.com/user/Ill_Brief3700/" target="_blank">Reddit</a>
-        <a href="https://farzaddihan.tumblr.com/" target="_blank">Tumblr</a>
-        <a href="https://t.me/farzaddihan" target="_blank">Telegram</a>
-      </div>
-    </aside>
-
-    <!-- Bio Section -->
-    <article class="bio-box animate-on-scroll">
-      <p class="bio-intro">Hi, I'm Dihan from Bangladesh.</p>
-      <p class="bio-text">
-        I am a designer, animator, illustrator, and painter with a deep passion for connecting human emotions through creativity. I hold a Bachelor's degree in Graphic Design under the Faculty of Fine Arts at Jahangirnagar University. Over the past five years, my artistic journey has allowed me to contribute to a variety of projects both nationally and internationally. Through my work, I strive to build meaningful connections between people, the world, and the soul.
-      </p>
-    </article>
-  </section>
-
-  <!-- Gallery Section -->
-  <main class="gallery-sections">
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Illustration</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="illustration-gallery" class="horizontal-gallery">
-          <p>Loading images...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Animation</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="animation-gallery" class="horizontal-gallery single-row">
-          <p>Loading videos...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Design</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="design-gallery" class="horizontal-gallery">
-          <p>Loading images...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Other Works</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="random-practice-gallery" class="horizontal-gallery">
-          <p>Loading images...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Storyboard</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="storyboard-gallery" class="horizontal-gallery">
-          <p>Loading storyboards...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Traditional Work</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="traditional-work-gallery" class="horizontal-gallery">
-          <p>Loading images...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Wall Paint</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="wall-paint-gallery" class="horizontal-gallery">
-          <p>Loading images...</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="section-box animate-on-scroll">
-      <section class="gallery-title-box">
-        <h1 class="gallery-title">Timelapse</h1>
-      </section>
-      <div class="gallery-wrapper">
-        <div id="timelapse-gallery" class="horizontal-gallery">
-          <p>Loading videos...</p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Modal for Viewing Images or Videos -->
-  <div id="modal" class="modal">
-    <span class="close" title="Close">&times;</span>
-    <span class="prev" id="modal-prev" title="Previous">&#10094;</span>
-    <span class="next" id="modal-next" title="Next">&#10095;</span>
-    <img id="modal-img" class="modal-content" alt="Modal Image" style="display: none;" />
-    <video id="modal-video" class="modal-content" style="display: none;" controls controlsList="nodownload"></video>
+<header class="header-box animate">
+  <div class="name-box">
+    <h1>Farzad Mustakim Dihan</h1>
+    <p class="from-daag">From Daag</p>
+    <p class="roles">Designer, Animator, Illustrator, Painter</p>
   </div>
+  <div id="slideshow"></div>
+</header>
 
-  <script>
-    // Configuration
-    const config = {
-      apiKey: "AIzaSyDZYWh4w2-w4KOxRfE21pNZDN2TuCaHiWM",
-      
-      galleryFolderIds: {
-        illustration: "1D51mD5492H05RYBnvllBblCbHSU_kIa3",
-        animation: "1jdMVLFM1fEJin_DGsxU5h5QBT7TffOQV",
-        design: "1F9qYQ_aFXLjImo61XxMW1uXwZWmSWQ3u",
-        randomPractice: "16O1UHav8jttMlLGwXOft5l-iUt4w0uTt",
-        storyboard: "12QtYLnwsjHcE1BOiGWCBTA4qDlA7c4zQ",
-        traditionalWork: "12TuHnmo3-P_u7pgsdJwuqw1eEPGUypaP",
-        wallPaint: "12R59OQfIDhmGAfRCp5hhICW28zJzU15n",
-        timelapse: "12RaSwvp7TjWUhhbkBz6jskHwI1qKxFgZ"
-      },
-      
-      slideshowFolderId: "1Nuzl3T0grALDvC6WX8ujf6p8kgcu9Miu",
-      
-      singleRowSections: ["storyboard", "animation", "timelapse"]
-    };
+<section class="side-by-side">
+  <aside class="social animate">
+    <h2 class="gallery-title">Connect with me</h2>
+    <div class="social-btns">
+      <a href="mailto:dihanfarzad@gmail.com?subject=Subject&body=Your%20message%20here">E-mail</a>
+      <a href="https://api.whatsapp.com/send?phone=8801851613736">WhatsApp</a>
+      <a href="http://fb.com/daagbyfarzaddihan">Facebook Page</a>
+      <a href="http://fb.com/farzaddihan">Facebook Profile</a>
+      <a href="http://instagram.com/dihhaann">Instagram</a>
+      <a href="https://www.linkedin.com/in/dihhaann">LinkedIn</a>
+      <a href="https://www.behance.net/farzaddihan">Behance</a>
+      <a href="https://farzaddihan.artstation.com/">ArtStation</a>
+      <a href="http://farzaddihan.deviantart.com/">DeviantArt</a>
+      <a href="https://www.youtube.com/@farzaddihan">YouTube</a>
+      <a href="https://x.com/farzaddihan">X</a>
+      <a href="https://www.patreon.com/dihhaann">Patreon</a>
+      <a href="http://dribbble.com/farzaddihan">Dribbble</a>
+      <a href="https://www.pinterest.com/dihhaann/">Pinterest</a>
+      <a href="https://www.reddit.com/user/Ill_Brief3700/">Reddit</a>
+      <a href="https://farzaddihan.tumblr.com/">Tumblr</a>
+      <a href="https://t.me/farzaddihan">Telegram</a>
+    </div>
+  </aside>
 
-    // State Management
-    const state = {
-      galleryMediaItems: [],
-      currentGalleryMediaIndex: 0,
-      slideshowIndex: 0,
-      slideshowIntervalId: null
-    };
+  <article class="bio animate">
+    <p class="bio-intro">Hi, I'm Dihan from Bangladesh.</p>
+    <p class="bio-text">I am a designer, animator, illustrator, and painter with a deep passion for connecting human emotions through creativity. I hold a Bachelor's degree in Graphic Design under the Faculty of Fine Arts at Jahangirnagar University. Over the past five years, my artistic journey has allowed me to contribute to a variety of projects both nationally and internationally. Through my work, I strive to build meaningful connections between people, the world, and the soul.</p>
+  </article>
+</section>
 
-    // DOM Elements
-    const elements = {
-      modal: document.getElementById("modal"),
-      modalImg: document.getElementById("modal-img"),
-      modalVideo: document.getElementById("modal-video"),
-      modalPrev: document.getElementById("modal-prev"),
-      modalNext: document.getElementById("modal-next"),
-      closeButton: document.querySelector(".modal .close"),
-      slideshowBox: document.getElementById("slideshow"),
-      
-      galleryElements: Object.fromEntries(
-        Object.keys(config.galleryFolderIds).map(key => {
-          const elementId = key.replace(/([A-Z])/g, '-$1').toLowerCase() + "-gallery";
-          return [key, document.getElementById(elementId)];
-        })
-      )
-    };
+<main class="gallery-sections">
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Illustration</h1></section>
+    <div class="gallery-wrapper"><div id="illustration" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Animation</h1></section>
+    <div class="gallery-wrapper"><div id="animation" class="horizontal-gallery single"><p>Loading videos...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Design</h1></section>
+    <div class="gallery-wrapper"><div id="design" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Other Works</h1></section>
+    <div class="gallery-wrapper"><div id="random" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Storyboard</h1></section>
+    <div class="gallery-wrapper"><div id="storyboard" class="horizontal-gallery"><p>Loading storyboards...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Traditional Work</h1></section>
+    <div class="gallery-wrapper"><div id="traditional" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Wall Paint</h1></section>
+    <div class="gallery-wrapper"><div id="wallpaint" class="horizontal-gallery"><p>Loading images...</p></div></div>
+  </div>
+  <div class="section-box animate">
+    <section class="gallery-title-box"><h1 class="gallery-title">Timelapse</h1></section>
+    <div class="gallery-wrapper"><div id="timelapse" class="horizontal-gallery"><p>Loading videos...</p></div></div>
+  </div>
+</main>
 
-    // Observers
-    const observers = {
-      lazyObserver: new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            const src = el.dataset.src;
-            if (src) {
-              if (el.tagName === "IMG" || el.tagName === "VIDEO" || el.tagName === "IFRAME") {
-                el.src = src;
-              }
-              el.removeAttribute("data-src");
-            }
-            if(el.tagName === "VIDEO") {
-              el.controls = false;
-            }
-            observers.lazyObserver.unobserve(el);
-          }
-        });
-      }, { rootMargin: "150px" }),
-      
-      scrollObserver: new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          entry.target.classList.toggle("animated", entry.isIntersecting);
-        });
-      }, { threshold: 0.1 })
-    };
+<div id="modal" class="modal">
+  <span class="close">&times;</span>
+  <span class="prev" id="prev">&#10094;</span>
+  <span class="next" id="next">&#10095;</span>
+  <img id="modal-img" class="modal-content" style="display:none">
+  <video id="modal-video" class="modal-content" style="display:none" controls controlsList="nodownload"></video>
+</div>
 
-    // Gallery Functions
-    const gallery = {
-      enableModal(index) {
-        if (index < 0 || index >= state.galleryMediaItems.length) return;
-        
-        const item = state.galleryMediaItems[index];
-        if (!item || !item.type) return;
-        
-        const { src, type, alt } = item;
-        state.currentGalleryMediaIndex = index;
+<script>
+const c={
+  apiKey:"AIzaSyDZYWh4w2-w4KOxRfE21pNZDN2TuCaHiWM",
+  folders:{
+    illustration:"1D51mD5492H05RYBnvllBblCbHSU_kIa3",
+    animation:"1jdMVLFM1fEJin_DGsxU5h5QBT7TffOQV",
+    design:"1F9qYQ_aFXLjImo61XxMW1uXwZWmSWQ3u",
+    random:"16O1UHav8jttMlLGwXOft5l-iUt4w0uTt",
+    storyboard:"12QtYLnwsjHcE1BOiGWCBTA4qDlA7c4zQ",
+    traditional:"12TuHnmo3-P_u7pgsdJwuqw1eEPGUypaP",
+    wallpaint:"12R59OQfIDhmGAfRCp5hhICW28zJzU15n",
+    timelapse:"12RaSwvp7TjWUhhbkBz6jskHwI1qKxFgZ"
+  },
+  slideshow:"1Nuzl3T0grALDvC6WX8ujf6p8kgcu9Miu",
+  singleRow:["storyboard","animation","timelapse"]
+};
 
-        if (elements.modalVideo.style.display === "block" && !elements.modalVideo.paused) {
-          elements.modalVideo.pause();
+let s={
+  media:[],
+  current:0,
+  slideIndex:0,
+  slideInt:null
+};
+
+const e={
+  modal:document.getElementById("modal"),
+  img:document.getElementById("modal-img"),
+  video:document.getElementById("modal-video"),
+  prev:document.getElementById("prev"),
+  next:document.getElementById("next"),
+  close:document.querySelector(".close"),
+  slideshow:document.getElementById("slideshow"),
+  galleries:Object.fromEntries(
+    Object.keys(c.folders).map(k=>[k,document.getElementById(k)])
+  )
+};
+
+const o={
+  lazy:new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const t=e.target;
+        const s=t.dataset.src;
+        if(s){
+          if(["IMG","VIDEO","IFRAME"].includes(t.tagName))t.src=s;
+          t.removeAttribute("data-src");
         }
-
-        elements.modalImg.style.display = "none";
-        elements.modalVideo.style.display = "none";
-        elements.modalImg.src = "";
-        elements.modalVideo.src = "";
-
-        if (type === "image") {
-          // Use medium resolution (800px width) instead of full resolution (s0)
-          elements.modalImg.src = src.replace(/=s0$/, '=w800');
-          elements.modalImg.alt = alt || "Gallery Image";
-          elements.modalImg.style.display = "block";
-          
-          // Prevent right-click save and dragging
-          elements.modalImg.oncontextmenu = (e) => {
-            e.preventDefault();
-            return false;
-          };
-          elements.modalImg.ondragstart = (e) => {
-            e.preventDefault();
-            return false;
-          };
-        } else if (type === "video") {
-          elements.modalVideo.src = src;
-          elements.modalVideo.style.display = "block";
-          
-          // Prevent right-click save and dragging for video
-          elements.modalVideo.oncontextmenu = (e) => {
-            e.preventDefault();
-            return false;
-          };
-          elements.modalVideo.ondragstart = (e) => {
-            e.preventDefault();
-            return false;
-          };
-          elements.modalVideo.controlsList = "nodownload";
-          
-          // Disable right-click menu on video controls
-          const disableVideoControlsContextMenu = () => {
-            const controls = elements.modalVideo.querySelectorAll('div, button');
-            controls.forEach(control => {
-              control.oncontextmenu = (e) => {
-                e.preventDefault();
-                return false;
-              };
-            });
-          };
-          
-          elements.modalVideo.onloadedmetadata = disableVideoControlsContextMenu;
-          elements.modalVideo.onplay = disableVideoControlsContextMenu;
-        }
-
-        elements.modal.style.display = "block";
-      },
-      
-      createGalleryElement(file, folderKey) {
-        if (!file.id || !file.name || !file.mimeType) return null;
-        
-        const driveLink = `https://drive.google.com/uc?id=${file.id}`;
-        const previewLink = `https://drive.google.com/file/d/${file.id}/preview`;
-        // Use medium resolution (800px width) for modal and thumbnail (400px width) for gallery
-        const highResImageSrc = `https://lh3.googleusercontent.com/d/${file.id}=w800`;
-        const thumbnailSrc = `https://lh3.googleusercontent.com/d/${file.id}=w400`;
-        
-        let element;
-        let mediaData = null;
-        
-        try {
-          if (file.mimeType.startsWith("image/")) {
-            element = document.createElement("img");
-            element.dataset.src = thumbnailSrc;
-            element.alt = file.name;
-            element.loading = "lazy";
-            element.classList.add("lazy-media");
-            
-            // Prevent right-click save and dragging
-            element.oncontextmenu = (e) => {
-              e.preventDefault();
-              return false;
-            };
-            element.ondragstart = (e) => {
-              e.preventDefault();
-              return false;
-            };
-            
-            const index = state.galleryMediaItems.length;
-            mediaData = { src: highResImageSrc, type: "image", alt: file.name };
-            state.galleryMediaItems.push(mediaData);
-            element.addEventListener("click", (e) => {
-              e.stopPropagation();
-              this.enableModal(index);
-            });
-          } 
-          else if (file.mimeType.startsWith("video/")) {
-            if (["animation", "timelapse"].includes(folderKey)) {
-              element = document.createElement("iframe");
-              element.dataset.src = previewLink;
-              element.width = "400";
-              element.height = "300";
-              element.allow = "fullscreen";
-              element.style.border = "none";
-              element.classList.add("lazy-media");
-              element.sandbox = "allow-same-origin allow-scripts allow-popups allow-presentation";
-            } else {
-              element = document.createElement("video");
-              element.dataset.src = driveLink;
-              element.width = 200;
-              element.height = 200;
-              element.classList.add("lazy-media");
-              element.style.cursor = 'pointer';
-              
-              // Prevent right-click save and dragging
-              element.oncontextmenu = (e) => {
-                e.preventDefault();
-                return false;
-              };
-              element.ondragstart = (e) => {
-                e.preventDefault();
-                return false;
-              };
-              element.controlsList = "nodownload";
-              
-              const index = state.galleryMediaItems.length;
-              mediaData = { src: driveLink, type: "video", alt: file.name };
-              state.galleryMediaItems.push(mediaData);
-              element.addEventListener("click", (e) => {
-                e.stopPropagation();
-                this.enableModal(index);
-              });
-            }
-          } 
-          else if (file.mimeType === "application/pdf") {
-            if (folderKey === "storyboard") {
-              element = document.createElement("iframe");
-              element.dataset.src = previewLink;
-              element.width = "400";
-              element.height = "300";
-              element.style.border = "none";
-              element.classList.add("lazy-media");
-              element.sandbox = "allow-same-origin allow-scripts allow-popups";
-            } else {
-              element = document.createElement("a");
-              element.href = driveLink;
-              element.target = "_blank";
-              element.rel = "noopener noreferrer";
-              element.textContent = `📄 ${file.name}`;
-              element.classList.add("pdf-link");
-            }
-          }
-        } catch (error) {
-          console.error("Error creating element:", error);
-          return null;
-        }
-        
-        return element;
-      },
-      
-      renderGalleryFile(file, folderKey, container) {
-        const element = this.createGalleryElement(file, folderKey);
-        if (element) {
-          element.classList.add("animate-on-scroll");
-          container.appendChild(element);
-          observers.lazyObserver.observe(element);
-          observers.scrollObserver.observe(element);
-        }
-      },
-      
-      async loadGalleryMedia(folderId, galleryElement, folderKey) {
-        if (!galleryElement) return;
-        
-        galleryElement.innerHTML = '<p>Loading...</p>';
-        const api = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents+and+trashed=false&key=${config.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`;
-        
-        try {
-          const response = await fetch(api);
-          if (!response.ok) throw new Error(`API error: ${response.status}`);
-          const data = await response.json();
-          const files = data.files;
-          
-          if (!files) {
-            galleryElement.innerHTML = "<p>No media found or error loading.</p>";
-            return;
-          }
-          
-          if (files.length > 0) {
-            galleryElement.innerHTML = "";
-            files.forEach(file => this.renderGalleryFile(file, folderKey, galleryElement));
-          } else {
-            galleryElement.innerHTML = "<p>No media found in this folder.</p>";
-          }
-        } catch (err) {
-          galleryElement.innerHTML = "<p>Failed to load media. Please check permissions or API key.</p>";
-          console.error("Error loading media:", err);
-        }
-      },
-      
-      async loadStoryboardMedia(parentFolderId, galleryElement) {
-        if (!galleryElement) return;
-        
-        galleryElement.innerHTML = '<p>Loading storyboard folders...</p>';
-        const folderApi = `https://www.googleapis.com/drive/v3/files?q='${parentFolderId}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&key=${config.apiKey}&fields=files(id,name)&orderBy=createdTime+desc&pageSize=1000`;
-        
-        try {
-          const folderResponse = await fetch(folderApi);
-          if (!folderResponse.ok) throw new Error(`API error: ${folderResponse.status}`);
-          const folderData = await folderResponse.json();
-          const subfolders = folderData.files;
-          
-          if (!subfolders || subfolders.length === 0) {
-            galleryElement.innerHTML = "<p>No storyboard subfolders found.</p>";
-            return;
-          }
-          
-          galleryElement.innerHTML = "";
-          let hasRenderedContent = false;
-          
-          for (const sub of subfolders) {
-            const subFolderContainer = document.createElement('div');
-            subFolderContainer.classList.add('storyboard-subfolder-section');
-            subFolderContainer.style.display = 'contents';
-            
-            const title = document.createElement("h3");
-            title.textContent = sub.name;
-            galleryElement.appendChild(title);
-            
-            const subApi = `https://www.googleapis.com/drive/v3/files?q='${sub.id}'+in+parents+and+trashed=false&key=${config.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`;
-            const filesResponse = await fetch(subApi);
-            
-            if (!filesResponse.ok) {
-              const errorMsg = document.createElement('p');
-              errorMsg.textContent = `Error loading files for ${sub.name}.`;
-              errorMsg.style.color = 'red';
-              errorMsg.style.textAlign = 'center';
-              galleryElement.appendChild(errorMsg);
-              continue;
-            }
-            
-            const filesData = await filesResponse.json();
-            const files = filesData.files;
-            
-            if (files && files.length > 0) {
-              files.forEach(file => this.renderGalleryFile(file, "storyboard", galleryElement));
-              hasRenderedContent = true;
-            } else {
-              const noFilesMsg = document.createElement('p');
-              noFilesMsg.textContent = `No files found in ${sub.name}.`;
-              noFilesMsg.style.textAlign = 'center';
-              galleryElement.appendChild(noFilesMsg);
-            }
-          }
-          
-          if (!hasRenderedContent && galleryElement.innerHTML === "") {
-            galleryElement.innerHTML = "<p>No storyboard content found in any subfolder.</p>";
-          }
-        } catch (err) {
-          galleryElement.innerHTML = "<p>Failed to load storyboard media.</p>";
-          console.error("Storyboard Loading Error:", err);
-        }
+        if(t.tagName==="VIDEO")t.controls=false;
+        o.lazy.unobserve(t);
       }
-    };
-
-    // Slideshow Functions
-    const slideshow = {
-      async load() {
-        if (!elements.slideshowBox) {
-          console.error("Slideshow container not found.");
-          return;
-        }
-        
-        if (state.slideshowIntervalId) {
-          clearInterval(state.slideshowIntervalId);
-          state.slideshowIntervalId = null;
-        }
-        
-        elements.slideshowBox.innerHTML = '';
-        state.slideshowIndex = 0;
-        
-        const url = `https://www.googleapis.com/drive/v3/files?q='${config.slideshowFolderId}'+in+parents+and+mimeType contains 'image/'+and+trashed=false&key=${config.apiKey}&fields=files(id)&orderBy=createdTime+desc&pageSize=50`;
-        
-        try {
-          const response = await fetch(url);
-          if (!response.ok) throw new Error(`API error: ${response.status}`);
-          const data = await response.json();
-          const files = data.files;
-          
-          if (!files || files.length === 0) {
-            elements.slideshowBox.innerHTML = '<p style="color: #ccc; text-align: center; padding: 10px;">No images</p>';
-            return;
-          }
-          
-          files.forEach((file, index) => {
-            const img = document.createElement('img');
-            img.dataset.src = `https://lh3.googleusercontent.com/d/${file.id}=w400`;
-            img.style.opacity = 0;
-            img.loading = "lazy";
-            img.alt = `Slideshow image ${index + 1}`;
-            img.oncontextmenu = (e) => {
-              e.preventDefault();
-              return false;
-            };
-            img.ondragstart = (e) => {
-              e.preventDefault();
-              return false;
-            };
-            elements.slideshowBox.appendChild(img);
-          });
-          
-          const allSlides = elements.slideshowBox.querySelectorAll("img");
-          if (allSlides.length > 0) {
-            allSlides[0].src = allSlides[0].dataset.src;
-            allSlides[0].onload = () => {
-              allSlides[0].style.opacity = 1;
-            };
-            
-            if (allSlides.length > 1) {
-              state.slideshowIntervalId = setInterval(() => {
-                const currentSlide = allSlides[state.slideshowIndex];
-                currentSlide.style.opacity = 0;
-                
-                state.slideshowIndex = (state.slideshowIndex + 1) % allSlides.length;
-                
-                const nextSlide = allSlides[state.slideshowIndex];
-                if (!nextSlide.src) {
-                  nextSlide.src = nextSlide.dataset.src;
-                }
-                nextSlide.style.opacity = 1;
-              }, 5000);
-            }
-          } else {
-            elements.slideshowBox.innerHTML = '<p style="color: #ccc; text-align: center; padding: 10px;">Loading error</p>';
-          }
-        } catch (e) {
-          console.error("Slideshow loading error:", e);
-          elements.slideshowBox.innerHTML = '<p style="color: red; text-align: center; padding: 10px;">Error</p>';
-        }
-      }
-    };
-
-    // Modal Functions
-    const modal = {
-      setupControls() {
-        if (!elements.modal || !elements.modalImg || !elements.modalVideo || 
-            !elements.modalPrev || !elements.modalNext || !elements.closeButton) {
-          console.error("Modal elements not found!");
-          return;
-        }
-        
-        const navigate = (direction) => {
-          let attempts = 0;
-          const maxAttempts = state.galleryMediaItems.length;
-          let newIndex = state.currentGalleryMediaIndex;
-          
-          do {
-            newIndex = (newIndex + direction + state.galleryMediaItems.length) % state.galleryMediaItems.length;
-            attempts++;
-          } while (
-            (!state.galleryMediaItems[newIndex] || !state.galleryMediaItems[newIndex].type) && 
-            attempts < maxAttempts
-          );
-          
-          if (state.galleryMediaItems[newIndex] && state.galleryMediaItems[newIndex].type) {
-            gallery.enableModal(newIndex);
-          }
-        };
-        
-        elements.modalPrev.onclick = (e) => {
-          e.stopPropagation();
-          navigate(-1);
-        };
-        
-        elements.modalNext.onclick = (e) => {
-          e.stopPropagation();
-          navigate(1);
-        };
-        
-        const closeModal = () => {
-          elements.modal.style.display = "none";
-          if (!elements.modalVideo.paused) {
-            elements.modalVideo.pause();
-          }
-          elements.modalImg.src = "";
-          elements.modalVideo.src = "";
-          elements.modalImg.alt = "";
-        };
-        
-        elements.closeButton.onclick = (e) => {
-          e.stopPropagation();
-          closeModal();
-        };
-        
-        elements.modal.onclick = (e) => {
-          if (e.target === elements.modal) {
-            closeModal();
-          }
-        };
-        
-        document.addEventListener('keydown', (e) => {
-          if (elements.modal.style.display === 'block') {
-            if (e.key === 'ArrowLeft') {
-              navigate(-1);
-            } else if (e.key === 'ArrowRight') {
-              navigate(1);
-            } else if (e.key === 'Escape') {
-              closeModal();
-            }
-          }
-        });
-      }
-    };
-
-    // Setup Functions
-    const setup = {
-      scrollAnimations() {
-        document.querySelectorAll(".section-box, .header-box, .social-box, .bio-box").forEach(el => {
-          if (!el.classList.contains('animate-on-scroll')) {
-            el.classList.add('animate-on-scroll');
-          }
-          observers.scrollObserver.observe(el);
-        });
-      },
-      
-      initGalleries() {
-        Object.entries(config.galleryFolderIds).forEach(([key, id]) => {
-          const el = elements.galleryElements[key];
-          if (!el) {
-            console.warn(`Gallery element for "${key}" not found.`);
-            return;
-          }
-          
-          if (config.singleRowSections.includes(key)) {
-            el.classList.add("single-row");
-          } else {
-            el.classList.remove("single-row");
-          }
-          
-          if (key === "storyboard") {
-            gallery.loadStoryboardMedia(id, el);
-          } else {
-            gallery.loadGalleryMedia(id, el, key);
-          }
-        });
-      }
-    };
-
-    // Initialize
-    document.addEventListener("DOMContentLoaded", () => {
-      slideshow.load();
-      setup.initGalleries();
-      setup.scrollAnimations();
-      modal.setupControls();
-      
-      // Disable right-click on the whole document for media elements
-      document.addEventListener('contextmenu', (e) => {
-        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
-      // Disable drag and drop for media elements
-      document.addEventListener('dragstart', (e) => {
-        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
-          e.preventDefault();
-          return false;
-        }
-      });
     });
+  },{rootMargin:"150px"}),
+  scroll:new IntersectionObserver(es=>{
+    es.forEach(e=>e.target.classList.toggle("show",e.isIntersecting));
+  },{threshold:0.1})
+};
 
-  </script>
+const g={
+  showModal(i){
+    if(i<0||i>=s.media.length)return;
+    const m=s.media[i];
+    if(!m?.type)return;
+    s.current=i;
+    if(e.video.style.display==="block"&&!e.video.paused)e.video.pause();
+    e.img.style.display=e.video.style.display="none";
+    e.img.src=e.video.src="";
+    if(m.type==="image"){
+      e.img.src=m.src.replace(/=s0$/,'=w800');
+      e.img.alt=m.alt||"Gallery Image";
+      e.img.style.display="block";
+      e.img.oncontextmenu=e.img.ondragstart=ev=>ev.preventDefault();
+    }else if(m.type==="video"){
+      e.video.src=m.src;
+      e.video.style.display="block";
+      e.video.oncontextmenu=e.video.ondragstart=ev=>ev.preventDefault();
+      const dc=()=>{
+        const cs=e.video.querySelectorAll('div, button');
+        cs.forEach(c=>c.oncontextmenu=ev=>ev.preventDefault());
+      };
+      e.video.onloadedmetadata=e.video.onplay=dc;
+    }
+    e.modal.style.display="block";
+  },
+  
+  createEl(f,k){
+    if(!f.id||!f.name||!f.mimeType)return null;
+    const d=`https://drive.google.com/uc?id=${f.id}`;
+    const p=`https://drive.google.com/file/d/${f.id}/preview`;
+    const h=`https://lh3.googleusercontent.com/d/${f.id}=w800`;
+    const t=`https://lh3.googleusercontent.com/d/${f.id}=w400`;
+    let el,m=null;
+    try{
+      if(f.mimeType.startsWith("image/")){
+        el=document.createElement("img");
+        el.dataset.src=t;
+        el.alt=f.name;
+        el.loading="lazy";
+        el.oncontextmenu=el.ondragstart=ev=>ev.preventDefault();
+        const i=s.media.length;
+        m={src:h,type:"image",alt:f.name};
+        s.media.push(m);
+        el.addEventListener("click",ev=>{ev.stopPropagation();this.showModal(i);});
+      }else if(f.mimeType.startsWith("video/")){
+        if(["animation","timelapse"].includes(k)){
+          el=document.createElement("iframe");
+          el.dataset.src=p;
+          el.width="400";
+          el.height="300";
+          el.allow="fullscreen";
+          el.sandbox="allow-same-origin allow-scripts allow-popups allow-presentation";
+        }else{
+          el=document.createElement("video");
+          el.dataset.src=d;
+          el.width=200;
+          el.height=200;
+          el.oncontextmenu=el.ondragstart=ev=>ev.preventDefault();
+          const i=s.media.length;
+          m={src:d,type:"video",alt:f.name};
+          s.media.push(m);
+          el.addEventListener("click",ev=>{ev.stopPropagation();this.showModal(i);});
+        }
+      }else if(f.mimeType==="application/pdf"){
+        if(k==="storyboard"){
+          el=document.createElement("iframe");
+          el.dataset.src=p;
+          el.width="400";
+          el.height="300";
+          el.sandbox="allow-same-origin allow-scripts allow-popups";
+        }else{
+          el=document.createElement("a");
+          el.href=d;
+          el.target="_blank";
+          el.rel="noopener noreferrer";
+          el.textContent=`📄 ${f.name}`;
+          el.classList.add("pdf-link");
+        }
+      }
+      if(el){
+        el.classList.add("lazy","animate");
+        o.lazy.observe(el);
+        o.scroll.observe(el);
+      }
+    }catch(err){console.error("Error creating element:",err)}
+    return el;
+  },
+  
+  async loadGallery(id,el,k){
+    if(!el)return;
+    el.innerHTML='<p>Loading...</p>';
+    try{
+      const r=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&key=${c.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`);
+      if(!r.ok)throw new Error(`API error: ${r.status}`);
+      const d=await r.json();
+      if(!d.files){el.innerHTML="<p>No media found.</p>";return;}
+      el.innerHTML="";
+      d.files.forEach(f=>{
+        const e=this.createEl(f,k);
+        if(e)el.appendChild(e);
+      });
+      if(d.files.length===0)el.innerHTML="<p>No media in folder.</p>";
+    }catch(err){
+      el.innerHTML="<p>Failed to load media.</p>";
+      console.error("Error:",err);
+    }
+  },
+  
+  async loadStoryboard(id,el){
+    if(!el)return;
+    el.innerHTML='<p>Loading folders...</p>';
+    try{
+      const r=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&key=${c.apiKey}&fields=files(id,name)&orderBy=createdTime+desc&pageSize=1000`);
+      if(!r.ok)throw new Error(`API error: ${r.status}`);
+      const d=await r.json();
+      if(!d.files||d.files.length===0){el.innerHTML="<p>No subfolders.</p>";return;}
+      el.innerHTML="";
+      let hc=false;
+      for(const s of d.files){
+        const t=document.createElement("h3");
+        t.textContent=s.name;
+        el.appendChild(t);
+        const fr=await fetch(`https://www.googleapis.com/drive/v3/files?q='${s.id}'+in+parents+and+trashed=false&key=${c.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`);
+        if(!fr.ok){
+          const em=document.createElement('p');
+          em.textContent=`Error loading ${s.name}.`;
+          em.style.color='red';
+          em.style.textAlign='center';
+          el.appendChild(em);
+          continue;
+        }
+        const fd=await fr.json();
+        if(fd.files?.length>0){
+          fd.files.forEach(f=>{
+            const e=this.createEl(f,"storyboard");
+            if(e)el.appendChild(e);
+          });
+          hc=true;
+        }
+      }
+      if(!hc&&el.innerHTML==="")el.innerHTML="<p>No content found.</p>";
+    }catch(err){
+      el.innerHTML="<p>Failed to load.</p>";
+      console.error("Error:",err);
+    }
+  }
+};
+
+const sl={
+  async load(){
+    if(!e.slideshow)return;
+    if(s.slideInt)clearInterval(s.slideInt);
+    e.slideshow.innerHTML='';
+    s.slideIndex=0;
+    try{
+      const r=await fetch(`https://www.googleapis.com/drive/v3/files?q='${c.slideshow}'+in+parents+and+mimeType contains 'image/'+and+trashed=false&key=${c.apiKey}&fields=files(id)&orderBy=createdTime+desc&pageSize=50`);
+      if(!r.ok)throw new Error(`API error: ${r.status}`);
+      const d=await r.json();
+      if(!d.files||d.files.length===0){e.slideshow.innerHTML='<p style="color:#ccc;text-align:center;padding:10px;">No images</p>';return;}
+      d.files.forEach((f,i)=>{
+        const img=document.createElement('img');
+        img.dataset.src=`https://lh3.googleusercontent.com/d/${f.id}=w400`;
+        img.style.opacity=0;
+        img.loading="lazy";
+        img.alt=`Slide ${i+1}`;
+        img.oncontextmenu=img.ondragstart=ev=>ev.preventDefault();
+        e.slideshow.appendChild(img);
+      });
+      const as=e.slideshow.querySelectorAll("img");
+      if(as.length>0){
+        as[0].src=as[0].dataset.src;
+        as[0].onload=()=>as[0].style.opacity=1;
+        if(as.length>1){
+          s.slideInt=setInterval(()=>{
+            as[s.slideIndex].style.opacity=0;
+            s.slideIndex=(s.slideIndex+1)%as.length;
+            const ns=as[s.slideIndex];
+            if(!ns.src)ns.src=ns.dataset.src;
+            ns.style.opacity=1;
+          },5000);
+        }
+      }else e.slideshow.innerHTML='<p style="color:#ccc;text-align:center;padding:10px;">Error</p>';
+    }catch(err){
+      console.error("Error:",err);
+      e.slideshow.innerHTML='<p style="color:red;text-align:center;padding:10px;">Error</p>';
+    }
+  }
+};
+
+const m={
+  setup(){
+    if(!e.modal||!e.img||!e.video||!e.prev||!e.next||!e.close)return;
+    const nav=d=>{
+      let a=0,n=s.current;
+      do{
+        n=(n+d+s.media.length)%s.media.length;
+        a++;
+      }while(!s.media[n]?.type&&a<s.media.length);
+      if(s.media[n]?.type)g.showModal(n);
+    };
+    e.prev.onclick=ev=>{ev.stopPropagation();nav(-1);};
+    e.next.onclick=ev=>{ev.stopPropagation();nav(1);};
+    const close=()=>{
+      e.modal.style.display="none";
+      if(!e.video.paused)e.video.pause();
+      e.img.src=e.video.src="";
+      e.img.alt="";
+    };
+    e.close.onclick=ev=>{ev.stopPropagation();close();};
+    e.modal.onclick=ev=>{if(ev.target===e.modal)close();};
+    document.addEventListener('keydown',ev=>{
+      if(e.modal.style.display==='block'){
+        if(ev.key==='ArrowLeft')nav(-1);
+        else if(ev.key==='ArrowRight')nav(1);
+        else if(ev.key==='Escape')close();
+      }
+    });
+  }
+};
+
+const setup={
+  scroll(){
+    document.querySelectorAll(".section-box, .header-box, .social, .bio").forEach(el=>{
+      if(!el.classList.contains('animate'))el.classList.add('animate');
+      o.scroll.observe(el);
+    });
+  },
+  galleries(){
+    Object.entries(c.folders).forEach(([k,id])=>{
+      const el=e.galleries[k];
+      if(!el)return;
+      el.classList.toggle("single",c.singleRow.includes(k));
+      k==="storyboard"?g.loadStoryboard(id,el):g.loadGallery(id,el,k);
+    });
+  }
+};
+
+document.addEventListener("DOMContentLoaded",()=>{
+  sl.load();
+  setup.galleries();
+  setup.scroll();
+  m.setup();
+  document.addEventListener('contextmenu',ev=>{if(['IMG','VIDEO'].includes(ev.target.tagName))ev.preventDefault();});
+  document.addEventListener('dragstart',ev=>{if(['IMG','VIDEO'].includes(ev.target.tagName))ev.preventDefault();});
+});
+</script>
 </body>
 </html>

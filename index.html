@@ -6,15 +6,15 @@
 <title>Farzad Dihan - Art Gallery</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-body{margin:0;color:#333;font-family:'Inter',sans-serif;background:#7b824c}
+body{margin:0;color:#333;font-family:Inter,sans-serif;background:#7b824c}
 .header-box{display:flex;flex-wrap:wrap;gap:20px;align-items:center;padding:20px;border-radius:10px;background:#234628;color:#fff;margin:20px;box-shadow:0 4px 10px #0003}
-.name-box{flex:1;min-width:250px}
 h1,h2{font-family:'Playfair Display',serif;margin:0}
+.name-box{flex:1;min-width:250px}
 .header-box h1{font-size:36px;color:#fff}
 .from-daag{color:#D1C78F;font-size:14px;margin:5px 0 3px}
 .roles{color:#F1E6A8;font-size:16px;font-weight:500}
 #slideshow{width:200px;height:200px;flex-shrink:0;background:#000;border-radius:10px;overflow:hidden;position:relative;box-shadow:0 0 10px #0009}
-#slideshow img{position:absolute;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease;user-select:none}
+#slideshow img{position:absolute;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1s ease}
 .animate{opacity:0;transform:translateY(40px);transition:.8s ease-out}
 .animate.show{opacity:1;transform:none}
 .side-by-side{display:flex;flex-wrap:wrap;justify-content:center;gap:30px;padding:0 20px;margin:30px auto;max-width:1800px}
@@ -23,7 +23,7 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 .social-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
 .social-btns a{padding:10px 15px;font-size:14px;color:#fff;text-decoration:none;background:#253c2c;border-radius:8px;transition:all .3s}
 .social-btns a:hover{background:#536c2f;transform:scale(1.05);box-shadow:0 4px 14px #0008}
-.bio{font-size:14px;color:#fff;background:#536c2f;text-align:left;line-height:1.5}
+.bio{font-size:14px;color:#fff;background:#536c2f}
 .bio-intro{margin-bottom:10px;font-weight:600;font-size:15px}
 .gallery-title-box{margin:20px auto;padding:15px;max-width:500px;text-align:center;background:#253c2c;color:#fff;border-radius:15px;box-shadow:0 4px 10px #0003}
 .gallery-wrapper{padding:20px;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth}
@@ -32,7 +32,7 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 .gallery-wrapper::-webkit-scrollbar-thumb{background:#253c2c;border-radius:5px}
 .horizontal-gallery{display:grid;grid-auto-flow:column;grid-template-rows:repeat(4,220px);gap:10px;justify-items:center;align-items:center;min-height:240px}
 .horizontal-gallery.single{grid-template-rows:repeat(1,auto);align-items:start;min-height:320px}
-.horizontal-gallery img,.horizontal-gallery video{max-height:200px;max-width:200px;width:auto;height:auto;object-fit:contain;border-radius:10px;cursor:pointer;transition:.4s;box-shadow:0 2px 6px #0003;user-select:none}
+.horizontal-gallery img,.horizontal-gallery video{max-height:200px;max-width:200px;width:auto;height:auto;object-fit:contain;border-radius:10px;cursor:pointer;transition:.4s;box-shadow:0 2px 6px #0003}
 .horizontal-gallery iframe{max-height:300px;max-width:400px;width:400px;height:300px;border-radius:10px;cursor:pointer;transition:.4s;box-shadow:0 2px 6px #0003;border:none}
 .horizontal-gallery img:hover,.horizontal-gallery video:hover,.horizontal-gallery iframe:hover{transform:scale(1.05);box-shadow:0 4px 14px #0008}
 .horizontal-gallery a.pdf-link{display:flex;height:200px;width:auto;min-width:120px;padding:15px;justify-content:center;align-items:center;text-align:center;text-decoration:none;color:#fff;background:#253c2c;border-radius:10px;font-size:14px;line-height:1.3;box-shadow:0 2px 6px #0004;transition:all .4s}
@@ -40,9 +40,9 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 .section-box{margin:40px auto;padding:25px 20px;max-width:95%;background:#576543;border:2px solid #d5d294;border-radius:20px;box-shadow:0 5px 12px #0002;transition:all .3s}
 .section-box:hover{transform:translateY(-5px);box-shadow:0 8px 18px #0003}
 .modal{display:none;position:fixed;z-index:1000;padding-top:60px;top:0;left:0;width:100%;height:100%;background:#000c;overflow:auto}
-.modal-content{display:block;margin:auto;max-width:90%;max-height:80%;width:auto;height:auto;user-select:none}
+.modal-content{display:block;margin:auto;max-width:90%;max-height:80%;width:auto;height:auto}
 .close{position:absolute;top:20px;right:40px;color:#fff;font-size:40px;font-weight:bold;cursor:pointer;z-index:1001}
-.prev,.next{cursor:pointer;position:absolute;top:50%;font-size:40px;color:#fff;padding:10px 15px;transform:translateY(-50%);user-select:none;background:#0005;border-radius:5px;transition:all .3s;z-index:1001}
+.prev,.next{cursor:pointer;position:absolute;top:50%;font-size:40px;color:#fff;padding:10px 15px;transform:translateY(-50%);background:#0005;border-radius:5px;transition:all .3s;z-index:1001}
 .prev:hover,.next:hover{background:#0009}
 .prev{left:30px}.next{right:30px}
 .horizontal-gallery p{color:#eee;font-size:16px;padding:20px;text-align:center;grid-column:1/-1}
@@ -51,7 +51,6 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:#ddd;border-radius:5px}
 ::-webkit-scrollbar-thumb{background:#253c2c;border-radius:5px}
-::-webkit-scrollbar-thumb:hover{background:#3d573d}
 </style>
 </head>
 <body>
@@ -67,7 +66,7 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 
 <section class="side-by-side">
   <aside class="social animate">
-    <h2 class="gallery-title">Connect with me</h2>
+    <h2>Connect with me</h2>
     <div class="social-btns">
       <a href="mailto:dihanfarzad@gmail.com?subject=Subject&body=Your%20message%20here">E-mail</a>
       <a href="https://api.whatsapp.com/send?phone=8801851613736">WhatsApp</a>
@@ -91,41 +90,41 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 
   <article class="bio animate">
     <p class="bio-intro">Hi, I'm Dihan from Bangladesh.</p>
-    <p class="bio-text">I am a designer, animator, illustrator, and painter with a deep passion for connecting human emotions through creativity. I hold a Bachelor's degree in Graphic Design under the Faculty of Fine Arts at Jahangirnagar University. Over the past five years, my artistic journey has allowed me to contribute to a variety of projects both nationally and internationally. Through my work, I strive to build meaningful connections between people, the world, and the soul.</p>
+    <p>I am a designer, animator, illustrator, and painter with a deep passion for connecting human emotions through creativity. I hold a Bachelor's degree in Graphic Design under the Faculty of Fine Arts at Jahangirnagar University. Over the past five years, my artistic journey has allowed me to contribute to a variety of projects both nationally and internationally. Through my work, I strive to build meaningful connections between people, the world, and the soul.</p>
   </article>
 </section>
 
 <main class="gallery-sections">
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Illustration</h1></section>
+    <section class="gallery-title-box"><h1>Illustration</h1></section>
     <div class="gallery-wrapper"><div id="illustration" class="horizontal-gallery"><p>Loading images...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Animation</h1></section>
+    <section class="gallery-title-box"><h1>Animation</h1></section>
     <div class="gallery-wrapper"><div id="animation" class="horizontal-gallery single"><p>Loading videos...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Design</h1></section>
+    <section class="gallery-title-box"><h1>Design</h1></section>
     <div class="gallery-wrapper"><div id="design" class="horizontal-gallery"><p>Loading images...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Other Works</h1></section>
+    <section class="gallery-title-box"><h1>Other Works</h1></section>
     <div class="gallery-wrapper"><div id="random" class="horizontal-gallery"><p>Loading images...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Storyboard</h1></section>
+    <section class="gallery-title-box"><h1>Storyboard</h1></section>
     <div class="gallery-wrapper"><div id="storyboard" class="horizontal-gallery"><p>Loading storyboards...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Traditional Work</h1></section>
+    <section class="gallery-title-box"><h1>Traditional Work</h1></section>
     <div class="gallery-wrapper"><div id="traditional" class="horizontal-gallery"><p>Loading images...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Wall Paint</h1></section>
+    <section class="gallery-title-box"><h1>Wall Paint</h1></section>
     <div class="gallery-wrapper"><div id="wallpaint" class="horizontal-gallery"><p>Loading images...</p></div></div>
   </div>
   <div class="section-box animate">
-    <section class="gallery-title-box"><h1 class="gallery-title">Timelapse</h1></section>
+    <section class="gallery-title-box"><h1>Timelapse</h1></section>
     <div class="gallery-wrapper"><div id="timelapse" class="horizontal-gallery"><p>Loading videos...</p></div></div>
   </div>
 </main>
@@ -139,7 +138,7 @@ h1,h2{font-family:'Playfair Display',serif;margin:0}
 </div>
 
 <script>
-const c={
+const config={
   apiKey:"AIzaSyDZYWh4w2-w4KOxRfE21pNZDN2TuCaHiWM",
   folders:{
     illustration:"1D51mD5492H05RYBnvllBblCbHSU_kIa3",
@@ -155,14 +154,14 @@ const c={
   singleRow:["storyboard","animation","timelapse"]
 };
 
-let s={
+let state={
   media:[],
   current:0,
   slideIndex:0,
   slideInt:null
 };
 
-const e={
+const els={
   modal:document.getElementById("modal"),
   img:document.getElementById("modal-img"),
   video:document.getElementById("modal-video"),
@@ -170,276 +169,248 @@ const e={
   next:document.getElementById("next"),
   close:document.querySelector(".close"),
   slideshow:document.getElementById("slideshow"),
-  galleries:Object.fromEntries(
-    Object.keys(c.folders).map(k=>[k,document.getElementById(k)])
-  )
+  galleries:Object.fromEntries(Object.keys(config.folders).map(k=>[k,document.getElementById(k)]))
 };
 
-const o={
-  lazy:new IntersectionObserver(es=>{
-    es.forEach(e=>{
+const obs={
+  lazy:new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
       if(e.isIntersecting){
         const t=e.target;
-        const s=t.dataset.src;
-        if(s){
-          if(["IMG","VIDEO","IFRAME"].includes(t.tagName))t.src=s;
+        if(t.dataset.src){
+          if(["IMG","VIDEO","IFRAME"].includes(t.tagName)) t.src=t.dataset.src;
           t.removeAttribute("data-src");
         }
-        if(t.tagName==="VIDEO")t.controls=false;
-        o.lazy.unobserve(t);
+        obs.lazy.unobserve(t);
       }
     });
   },{rootMargin:"150px"}),
-  scroll:new IntersectionObserver(es=>{
-    es.forEach(e=>e.target.classList.toggle("show",e.isIntersecting));
+  scroll:new IntersectionObserver(entries=>{
+    entries.forEach(e=>e.target.classList.toggle("show",e.isIntersecting));
   },{threshold:0.1})
 };
 
-const g={
-  showModal(i){
-    if(i<0||i>=s.media.length)return;
-    const m=s.media[i];
-    if(!m?.type)return;
-    s.current=i;
-    if(e.video.style.display==="block"&&!e.video.paused)e.video.pause();
-    e.img.style.display=e.video.style.display="none";
-    e.img.src=e.video.src="";
-    if(m.type==="image"){
-      e.img.src=m.src.replace(/=s0$/,'=w800');
-      e.img.alt=m.alt||"Gallery Image";
-      e.img.style.display="block";
-      e.img.oncontextmenu=e.img.ondragstart=ev=>ev.preventDefault();
-    }else if(m.type==="video"){
-      e.video.src=m.src;
-      e.video.style.display="block";
-      e.video.oncontextmenu=e.video.ondragstart=ev=>ev.preventDefault();
-      const dc=()=>{
-        const cs=e.video.querySelectorAll('div, button');
-        cs.forEach(c=>c.oncontextmenu=ev=>ev.preventDefault());
-      };
-      e.video.onloadedmetadata=e.video.onplay=dc;
-    }
-    e.modal.style.display="block";
-  },
-  
-  createEl(f,k){
-    if(!f.id||!f.name||!f.mimeType)return null;
-    const d=`https://drive.google.com/uc?id=${f.id}`;
-    const p=`https://drive.google.com/file/d/${f.id}/preview`;
-    const h=`https://lh3.googleusercontent.com/d/${f.id}=w800`;
-    const t=`https://lh3.googleusercontent.com/d/${f.id}=w400`;
-    let el,m=null;
-    try{
-      if(f.mimeType.startsWith("image/")){
-        el=document.createElement("img");
-        el.dataset.src=t;
-        el.alt=f.name;
-        el.loading="lazy";
-        el.oncontextmenu=el.ondragstart=ev=>ev.preventDefault();
-        const i=s.media.length;
-        m={src:h,type:"image",alt:f.name};
-        s.media.push(m);
-        el.addEventListener("click",ev=>{ev.stopPropagation();this.showModal(i);});
-      }else if(f.mimeType.startsWith("video/")){
-        if(["animation","timelapse"].includes(k)){
-          el=document.createElement("iframe");
-          el.dataset.src=p;
-          el.width="400";
-          el.height="300";
-          el.allow="fullscreen";
-          el.sandbox="allow-same-origin allow-scripts allow-popups allow-presentation";
-        }else{
-          el=document.createElement("video");
-          el.dataset.src=d;
-          el.width=200;
-          el.height=200;
-          el.oncontextmenu=el.ondragstart=ev=>ev.preventDefault();
-          const i=s.media.length;
-          m={src:d,type:"video",alt:f.name};
-          s.media.push(m);
-          el.addEventListener("click",ev=>{ev.stopPropagation();this.showModal(i);});
-        }
-      }else if(f.mimeType==="application/pdf"){
-        if(k==="storyboard"){
-          el=document.createElement("iframe");
-          el.dataset.src=p;
-          el.width="400";
-          el.height="300";
-          el.sandbox="allow-same-origin allow-scripts allow-popups";
-        }else{
-          el=document.createElement("a");
-          el.href=d;
-          el.target="_blank";
-          el.rel="noopener noreferrer";
-          el.textContent=`📄 ${f.name}`;
-          el.classList.add("pdf-link");
-        }
-      }
-      if(el){
-        el.classList.add("lazy","animate");
-        o.lazy.observe(el);
-        o.scroll.observe(el);
-      }
-    }catch(err){console.error("Error creating element:",err)}
-    return el;
-  },
-  
-  async loadGallery(id,el,k){
-    if(!el)return;
-    el.innerHTML='<p>Loading...</p>';
-    try{
-      const r=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&key=${c.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`);
-      if(!r.ok)throw new Error(`API error: ${r.status}`);
-      const d=await r.json();
-      if(!d.files){el.innerHTML="<p>No media found.</p>";return;}
-      el.innerHTML="";
-      d.files.forEach(f=>{
-        const e=this.createEl(f,k);
-        if(e)el.appendChild(e);
-      });
-      if(d.files.length===0)el.innerHTML="<p>No media in folder.</p>";
-    }catch(err){
-      el.innerHTML="<p>Failed to load media.</p>";
-      console.error("Error:",err);
-    }
-  },
-  
-  async loadStoryboard(id,el){
-    if(!el)return;
-    el.innerHTML='<p>Loading folders...</p>';
-    try{
-      const r=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&key=${c.apiKey}&fields=files(id,name)&orderBy=createdTime+desc&pageSize=1000`);
-      if(!r.ok)throw new Error(`API error: ${r.status}`);
-      const d=await r.json();
-      if(!d.files||d.files.length===0){el.innerHTML="<p>No subfolders.</p>";return;}
-      el.innerHTML="";
-      let hc=false;
-      for(const s of d.files){
-        const t=document.createElement("h3");
-        t.textContent=s.name;
-        el.appendChild(t);
-        const fr=await fetch(`https://www.googleapis.com/drive/v3/files?q='${s.id}'+in+parents+and+trashed=false&key=${c.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`);
-        if(!fr.ok){
-          const em=document.createElement('p');
-          em.textContent=`Error loading ${s.name}.`;
-          em.style.color='red';
-          em.style.textAlign='center';
-          el.appendChild(em);
-          continue;
-        }
-        const fd=await fr.json();
-        if(fd.files?.length>0){
-          fd.files.forEach(f=>{
-            const e=this.createEl(f,"storyboard");
-            if(e)el.appendChild(e);
-          });
-          hc=true;
-        }
-      }
-      if(!hc&&el.innerHTML==="")el.innerHTML="<p>No content found.</p>";
-    }catch(err){
-      el.innerHTML="<p>Failed to load.</p>";
-      console.error("Error:",err);
-    }
+function showModal(i){
+  if(i<0||i>=state.media.length||!state.media[i]?.type) return;
+  state.current=i;
+  if(els.video.style.display==="block"&&!els.video.paused) els.video.pause();
+  els.img.style.display=els.video.style.display="none";
+  els.img.src=els.video.src="";
+  const m=state.media[i];
+  if(m.type==="image"){
+    els.img.src=m.src.replace(/=s0$/,'=w800');
+    els.img.alt=m.alt||"Gallery Image";
+    els.img.style.display="block";
+  }else if(m.type==="video"){
+    els.video.src=m.src;
+    els.video.style.display="block";
   }
-};
+  els.modal.style.display="block";
+}
 
-const sl={
-  async load(){
-    if(!e.slideshow)return;
-    if(s.slideInt)clearInterval(s.slideInt);
-    e.slideshow.innerHTML='';
-    s.slideIndex=0;
-    try{
-      const r=await fetch(`https://www.googleapis.com/drive/v3/files?q='${c.slideshow}'+in+parents+and+mimeType contains 'image/'+and+trashed=false&key=${c.apiKey}&fields=files(id)&orderBy=createdTime+desc&pageSize=50`);
-      if(!r.ok)throw new Error(`API error: ${r.status}`);
-      const d=await r.json();
-      if(!d.files||d.files.length===0){e.slideshow.innerHTML='<p style="color:#ccc;text-align:center;padding:10px;">No images</p>';return;}
-      d.files.forEach((f,i)=>{
-        const img=document.createElement('img');
-        img.dataset.src=`https://lh3.googleusercontent.com/d/${f.id}=w400`;
-        img.style.opacity=0;
-        img.loading="lazy";
-        img.alt=`Slide ${i+1}`;
-        img.oncontextmenu=img.ondragstart=ev=>ev.preventDefault();
-        e.slideshow.appendChild(img);
-      });
-      const as=e.slideshow.querySelectorAll("img");
-      if(as.length>0){
-        as[0].src=as[0].dataset.src;
-        as[0].onload=()=>as[0].style.opacity=1;
-        if(as.length>1){
-          s.slideInt=setInterval(()=>{
-            as[s.slideIndex].style.opacity=0;
-            s.slideIndex=(s.slideIndex+1)%as.length;
-            const ns=as[s.slideIndex];
-            if(!ns.src)ns.src=ns.dataset.src;
-            ns.style.opacity=1;
-          },5000);
-        }
-      }else e.slideshow.innerHTML='<p style="color:#ccc;text-align:center;padding:10px;">Error</p>';
-    }catch(err){
-      console.error("Error:",err);
-      e.slideshow.innerHTML='<p style="color:red;text-align:center;padding:10px;">Error</p>';
-    }
-  }
-};
-
-const m={
-  setup(){
-    if(!e.modal||!e.img||!e.video||!e.prev||!e.next||!e.close)return;
-    const nav=d=>{
-      let a=0,n=s.current;
-      do{
-        n=(n+d+s.media.length)%s.media.length;
-        a++;
-      }while(!s.media[n]?.type&&a<s.media.length);
-      if(s.media[n]?.type)g.showModal(n);
-    };
-    e.prev.onclick=ev=>{ev.stopPropagation();nav(-1);};
-    e.next.onclick=ev=>{ev.stopPropagation();nav(1);};
-    const close=()=>{
-      e.modal.style.display="none";
-      if(!e.video.paused)e.video.pause();
-      e.img.src=e.video.src="";
-      e.img.alt="";
-    };
-    e.close.onclick=ev=>{ev.stopPropagation();close();};
-    e.modal.onclick=ev=>{if(ev.target===e.modal)close();};
-    document.addEventListener('keydown',ev=>{
-      if(e.modal.style.display==='block'){
-        if(ev.key==='ArrowLeft')nav(-1);
-        else if(ev.key==='ArrowRight')nav(1);
-        else if(ev.key==='Escape')close();
+function createEl(f,k){
+  if(!f.id||!f.name||!f.mimeType) return null;
+  const d=`https://drive.google.com/uc?id=${f.id}`;
+  const p=`https://drive.google.com/file/d/${f.id}/preview`;
+  const h=`https://lh3.googleusercontent.com/d/${f.id}=w800`;
+  const t=`https://lh3.googleusercontent.com/d/${f.id}=w400`;
+  let el,m=null;
+  try{
+    if(f.mimeType.startsWith("image/")){
+      el=document.createElement("img");
+      el.dataset.src=t;
+      el.alt=f.name;
+      el.loading="lazy";
+      const i=state.media.length;
+      m={src:h,type:"image",alt:f.name};
+      state.media.push(m);
+      el.addEventListener("click",e=>{e.stopPropagation();showModal(i);});
+    }else if(f.mimeType.startsWith("video/")){
+      if(["animation","timelapse"].includes(k)){
+        el=document.createElement("iframe");
+        el.dataset.src=p;
+        el.width="400";
+        el.height="300";
+        el.allow="fullscreen";
+        el.sandbox="allow-same-origin allow-scripts allow-popups allow-presentation";
+      }else{
+        el=document.createElement("video");
+        el.dataset.src=d;
+        el.width=200;
+        el.height=200;
+        const i=state.media.length;
+        m={src:d,type:"video",alt:f.name};
+        state.media.push(m);
+        el.addEventListener("click",e=>{e.stopPropagation();showModal(i);});
       }
-    });
-  }
-};
+    }else if(f.mimeType==="application/pdf"){
+      if(k==="storyboard"){
+        el=document.createElement("iframe");
+        el.dataset.src=p;
+        el.width="400";
+        el.height="300";
+        el.sandbox="allow-same-origin allow-scripts allow-popups";
+      }else{
+        el=document.createElement("a");
+        el.href=d;
+        el.target="_blank";
+        el.rel="noopener noreferrer";
+        el.textContent=`📄 ${f.name}`;
+        el.classList.add("pdf-link");
+      }
+    }
+    if(el){
+      el.classList.add("lazy","animate");
+      obs.lazy.observe(el);
+      obs.scroll.observe(el);
+    }
+  }catch(err){console.error("Error creating element:",err)}
+  return el;
+}
 
-const setup={
-  scroll(){
-    document.querySelectorAll(".section-box, .header-box, .social, .bio").forEach(el=>{
-      if(!el.classList.contains('animate'))el.classList.add('animate');
-      o.scroll.observe(el);
-    });
-  },
-  galleries(){
-    Object.entries(c.folders).forEach(([k,id])=>{
-      const el=e.galleries[k];
-      if(!el)return;
-      el.classList.toggle("single",c.singleRow.includes(k));
-      k==="storyboard"?g.loadStoryboard(id,el):g.loadGallery(id,el,k);
-    });
+async function loadGallery(id,el,k){
+  if(!el) return;
+  el.innerHTML='<p>Loading...</p>';
+  try{
+    const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+trashed=false&key=${config.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`);
+    if(!res.ok) throw new Error(`API error: ${res.status}`);
+    const data=await res.json();
+    if(!data.files){el.innerHTML="<p>No media found.</p>";return;}
+    el.innerHTML="";
+    data.files.forEach(f=>{const e=createEl(f,k);if(e)el.appendChild(e);});
+    if(data.files.length===0) el.innerHTML="<p>No media in folder.</p>";
+  }catch(err){
+    el.innerHTML="<p>Failed to load media.</p>";
+    console.error("Error:",err);
   }
-};
+}
+
+async function loadStoryboard(id,el){
+  if(!el) return;
+  el.innerHTML='<p>Loading folders...</p>';
+  try{
+    const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${id}'+in+parents+and+mimeType='application/vnd.google-apps.folder'+and+trashed=false&key=${config.apiKey}&fields=files(id,name)&orderBy=createdTime+desc&pageSize=1000`);
+    if(!res.ok) throw new Error(`API error: ${res.status}`);
+    const data=await res.json();
+    if(!data.files||data.files.length===0){el.innerHTML="<p>No subfolders.</p>";return;}
+    el.innerHTML="";
+    let hasContent=false;
+    for(const sub of data.files){
+      const title=document.createElement("h3");
+      title.textContent=sub.name;
+      el.appendChild(title);
+      const fr=await fetch(`https://www.googleapis.com/drive/v3/files?q='${sub.id}'+in+parents+and+trashed=false&key=${config.apiKey}&fields=files(id,name,mimeType)&orderBy=createdTime+desc&pageSize=1000`);
+      if(!fr.ok){
+        const errMsg=document.createElement('p');
+        errMsg.textContent=`Error loading ${sub.name}.`;
+        errMsg.style.color='red';
+        errMsg.style.textAlign='center';
+        el.appendChild(errMsg);
+        continue;
+      }
+      const files=await fr.json();
+      if(files.files?.length>0){
+        files.files.forEach(f=>{const e=createEl(f,"storyboard");if(e)el.appendChild(e);});
+        hasContent=true;
+      }
+    }
+    if(!hasContent&&el.innerHTML==="") el.innerHTML="<p>No content found.</p>";
+  }catch(err){
+    el.innerHTML="<p>Failed to load.</p>";
+    console.error("Error:",err);
+  }
+}
+
+async function loadSlideshow(){
+  if(!els.slideshow) return;
+  if(state.slideInt) clearInterval(state.slideInt);
+  els.slideshow.innerHTML='';
+  state.slideIndex=0;
+  try{
+    const res=await fetch(`https://www.googleapis.com/drive/v3/files?q='${config.slideshow}'+in+parents+and+mimeType contains 'image/'+and+trashed=false&key=${config.apiKey}&fields=files(id)&orderBy=createdTime+desc&pageSize=50`);
+    if(!res.ok) throw new Error(`API error: ${res.status}`);
+    const data=await res.json();
+    if(!data.files||data.files.length===0){els.slideshow.innerHTML='<p style="color:#ccc;text-align:center;padding:10px;">No images</p>';return;}
+    data.files.forEach((f,i)=>{
+      const img=document.createElement('img');
+      img.dataset.src=`https://lh3.googleusercontent.com/d/${f.id}=w400`;
+      img.style.opacity=0;
+      img.loading="lazy";
+      img.alt=`Slide ${i+1}`;
+      els.slideshow.appendChild(img);
+    });
+    const slides=els.slideshow.querySelectorAll("img");
+    if(slides.length>0){
+      slides[0].src=slides[0].dataset.src;
+      slides[0].onload=()=>slides[0].style.opacity=1;
+      if(slides.length>1){
+        state.slideInt=setInterval(()=>{
+          slides[state.slideIndex].style.opacity=0;
+          state.slideIndex=(state.slideIndex+1)%slides.length;
+          const nextSlide=slides[state.slideIndex];
+          if(!nextSlide.src) nextSlide.src=nextSlide.dataset.src;
+          nextSlide.style.opacity=1;
+        },5000);
+      }
+    }else els.slideshow.innerHTML='<p style="color:#ccc;text-align:center;padding:10px;">Error</p>';
+  }catch(err){
+    console.error("Error:",err);
+    els.slideshow.innerHTML='<p style="color:red;text-align:center;padding:10px;">Error</p>';
+  }
+}
+
+function setupModal(){
+  if(!els.modal||!els.img||!els.video||!els.prev||!els.next||!els.close) return;
+  const nav=dir=>{
+    let attempts=0,newIndex=state.current;
+    do{
+      newIndex=(newIndex+dir+state.media.length)%state.media.length;
+      attempts++;
+    }while(!state.media[newIndex]?.type&&attempts<state.media.length);
+    if(state.media[newIndex]?.type) showModal(newIndex);
+  };
+  els.prev.onclick=e=>{e.stopPropagation();nav(-1);};
+  els.next.onclick=e=>{e.stopPropagation();nav(1);};
+  const close=()=>{
+    els.modal.style.display="none";
+    if(!els.video.paused) els.video.pause();
+    els.img.src=els.video.src="";
+    els.img.alt="";
+  };
+  els.close.onclick=e=>{e.stopPropagation();close();};
+  els.modal.onclick=e=>{if(e.target===els.modal)close();};
+  document.addEventListener('keydown',e=>{
+    if(els.modal.style.display==='block'){
+      if(e.key==='ArrowLeft') nav(-1);
+      else if(e.key==='ArrowRight') nav(1);
+      else if(e.key==='Escape') close();
+    }
+  });
+}
+
+function setupGalleries(){
+  Object.entries(config.folders).forEach(([k,id])=>{
+    const el=els.galleries[k];
+    if(!el) return;
+    el.classList.toggle("single",config.singleRow.includes(k));
+    k==="storyboard"?loadStoryboard(id,el):loadGallery(id,el,k);
+  });
+}
+
+function setupScroll(){
+  document.querySelectorAll(".section-box, .header-box, .social, .bio").forEach(el=>{
+    if(!el.classList.contains('animate')) el.classList.add('animate');
+    obs.scroll.observe(el);
+  });
+}
 
 document.addEventListener("DOMContentLoaded",()=>{
-  sl.load();
-  setup.galleries();
-  setup.scroll();
-  m.setup();
-  document.addEventListener('contextmenu',ev=>{if(['IMG','VIDEO'].includes(ev.target.tagName))ev.preventDefault();});
-  document.addEventListener('dragstart',ev=>{if(['IMG','VIDEO'].includes(ev.target.tagName))ev.preventDefault();});
+  loadSlideshow();
+  setupGalleries();
+  setupScroll();
+  setupModal();
+  document.addEventListener('contextmenu',e=>{if(['IMG','VIDEO'].includes(e.target.tagName))e.preventDefault();});
+  document.addEventListener('dragstart',e=>{if(['IMG','VIDEO'].includes(e.target.tagName))e.preventDefault();});
 });
 </script>
 </body>

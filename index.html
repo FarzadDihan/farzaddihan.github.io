@@ -71,6 +71,11 @@
       object-fit: cover;
       opacity: 0;
       transition: opacity 1s ease-in-out;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      pointer-events: none;
     }
 
     /* Scroll Animation */
@@ -231,6 +236,15 @@
       cursor: pointer;
       transition: transform 0.4s, box-shadow 0.3s;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
     }
 
     /* Specific iframe styling */
@@ -319,6 +333,15 @@
       max-height: 80%;
       width: auto;
       height: auto;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
     }
 
     .close {
@@ -550,7 +573,7 @@
     <span class="prev" id="modal-prev" title="Previous">&#10094;</span>
     <span class="next" id="modal-next" title="Next">&#10095;</span>
     <img id="modal-img" class="modal-content" alt="Modal Image" style="display: none;" />
-    <video id="modal-video" class="modal-content" style="display: none;" controls></video>
+    <video id="modal-video" class="modal-content" style="display: none;" controls controlsList="nodownload"></video>
   </div>
 
   <script>
@@ -653,9 +676,44 @@
           elements.modalImg.src = src.replace(/=s0$/, '=w800');
           elements.modalImg.alt = alt || "Gallery Image";
           elements.modalImg.style.display = "block";
+          
+          // Prevent right-click save and dragging
+          elements.modalImg.oncontextmenu = (e) => {
+            e.preventDefault();
+            return false;
+          };
+          elements.modalImg.ondragstart = (e) => {
+            e.preventDefault();
+            return false;
+          };
         } else if (type === "video") {
           elements.modalVideo.src = src;
           elements.modalVideo.style.display = "block";
+          
+          // Prevent right-click save and dragging for video
+          elements.modalVideo.oncontextmenu = (e) => {
+            e.preventDefault();
+            return false;
+          };
+          elements.modalVideo.ondragstart = (e) => {
+            e.preventDefault();
+            return false;
+          };
+          elements.modalVideo.controlsList = "nodownload";
+          
+          // Disable right-click menu on video controls
+          const disableVideoControlsContextMenu = () => {
+            const controls = elements.modalVideo.querySelectorAll('div, button');
+            controls.forEach(control => {
+              control.oncontextmenu = (e) => {
+                e.preventDefault();
+                return false;
+              };
+            });
+          };
+          
+          elements.modalVideo.onloadedmetadata = disableVideoControlsContextMenu;
+          elements.modalVideo.onplay = disableVideoControlsContextMenu;
         }
 
         elements.modal.style.display = "block";
@@ -681,6 +739,16 @@
             element.loading = "lazy";
             element.classList.add("lazy-media");
             
+            // Prevent right-click save and dragging
+            element.oncontextmenu = (e) => {
+              e.preventDefault();
+              return false;
+            };
+            element.ondragstart = (e) => {
+              e.preventDefault();
+              return false;
+            };
+            
             const index = state.galleryMediaItems.length;
             mediaData = { src: highResImageSrc, type: "image", alt: file.name };
             state.galleryMediaItems.push(mediaData);
@@ -698,6 +766,7 @@
               element.allow = "fullscreen";
               element.style.border = "none";
               element.classList.add("lazy-media");
+              element.sandbox = "allow-same-origin allow-scripts allow-popups allow-presentation";
             } else {
               element = document.createElement("video");
               element.dataset.src = driveLink;
@@ -705,6 +774,17 @@
               element.height = 200;
               element.classList.add("lazy-media");
               element.style.cursor = 'pointer';
+              
+              // Prevent right-click save and dragging
+              element.oncontextmenu = (e) => {
+                e.preventDefault();
+                return false;
+              };
+              element.ondragstart = (e) => {
+                e.preventDefault();
+                return false;
+              };
+              element.controlsList = "nodownload";
               
               const index = state.galleryMediaItems.length;
               mediaData = { src: driveLink, type: "video", alt: file.name };
@@ -723,6 +803,7 @@
               element.height = "300";
               element.style.border = "none";
               element.classList.add("lazy-media");
+              element.sandbox = "allow-same-origin allow-scripts allow-popups";
             } else {
               element = document.createElement("a");
               element.href = driveLink;
@@ -879,6 +960,14 @@
             img.style.opacity = 0;
             img.loading = "lazy";
             img.alt = `Slideshow image ${index + 1}`;
+            img.oncontextmenu = (e) => {
+              e.preventDefault();
+              return false;
+            };
+            img.ondragstart = (e) => {
+              e.preventDefault();
+              return false;
+            };
             elements.slideshowBox.appendChild(img);
           });
           
@@ -1025,6 +1114,22 @@
       setup.initGalleries();
       setup.scrollAnimations();
       modal.setupControls();
+      
+      // Disable right-click on the whole document for media elements
+      document.addEventListener('contextmenu', (e) => {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+          e.preventDefault();
+          return false;
+        }
+      });
+      
+      // Disable drag and drop for media elements
+      document.addEventListener('dragstart', (e) => {
+        if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+          e.preventDefault();
+          return false;
+        }
+      });
     });
 
   </script>
